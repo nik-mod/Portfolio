@@ -1,5 +1,5 @@
 export const projects = [
-  { number: '01', title: 'Project slot 01', discipline: 'Selected case study', status: 'In curation', tone: 'dark' },
-  { number: '02', title: 'Project slot 02', discipline: 'Selected case study', status: 'To be announced', tone: 'light' },
-  { number: '03', title: 'Project slot 03', discipline: 'Selected case study', status: 'In curation', tone: 'red' },
+  { number: '01', title: 'Aurel / Sound objects', discipline: 'Cinematic product experience', status: 'Concept study', tone: 'dark' },
+  { number: '02', title: 'Outside the grid', discipline: 'Experimental creative studio', status: 'Concept study', tone: 'light' },
+  { number: '03', title: 'Vector / New interfaces', discipline: 'Interactive technology experience', status: 'Concept study', tone: 'red' },
 ] as const

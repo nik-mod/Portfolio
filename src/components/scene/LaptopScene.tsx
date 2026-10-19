@@ -1,10 +1,10 @@
 import { useCallback, useImperativeHandle, useLayoutEffect, useRef, type Ref } from 'react'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
-import { Environment } from '@react-three/drei/core/Environment'
 import { Lightformer } from '@react-three/drei/core/Lightformer'
 import { ACESFilmicToneMapping, CanvasTexture, PerspectiveCamera, SRGBColorSpace, Vector3, type Camera, type DirectionalLight, type Group, type MeshBasicMaterial, type Texture } from 'three'
 import { studioPose, type LaptopController, type LaptopPose, type ViewFrame } from '../../modules/scene/laptop-pose'
 import { LaptopModel } from './LaptopModel'
+import { StudioEnvironment } from './StudioEnvironment'
 
 type SceneProps = {
   onReady: () => void
@@ -132,11 +132,11 @@ function Studio({ onReady, onFailure, controllerRef, screenTexture, lowPower }: 
       shadow-camera-left={-6} shadow-camera-right={6} shadow-camera-top={6} shadow-camera-bottom={-6}
       shadow-normalBias={0.035} shadow-bias={-0.0002} />
     <directionalLight position={[5, 3, -5]} intensity={2.1} color="#c5d3ca" />
-    <Environment frames={1} resolution={simple ? 128 : 256} environmentIntensity={0.8}>
+    <StudioEnvironment resolution={simple ? 128 : 256}>
       <Lightformer form="rect" intensity={3.5} position={[-4, 5, 2]} scale={[3, 6, 1]} target={[0, 0, 0]} />
       <Lightformer form="rect" intensity={2.5} position={[4, 2, -4]} scale={[2, 5, 1]} target={[0, 0, 0]} />
       <Lightformer form="rect" intensity={1.5} position={[0, 6, -1]} scale={[6, 2, 1]} target={[0, 0, 0]} />
-    </Environment>
+    </StudioEnvironment>
     <LaptopModel body={body} lid={lid} preview={preview} simple={Boolean(simple)} screenTexture={screenTexture} />
     {!simple && <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.49, 0]} receiveShadow>
       <planeGeometry args={[30, 30]} /><shadowMaterial transparent opacity={0.27} />
