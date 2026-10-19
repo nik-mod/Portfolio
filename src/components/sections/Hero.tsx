@@ -1,8 +1,15 @@
 import { ArchitecturalViewport } from '../scene/ArchitecturalViewport'
+import { useRef, useState } from 'react'
+import { useScreenDive } from '../../hooks/useScreenDive'
+import type { LaptopController } from '../../modules/scene/laptop-pose'
 
 export function Hero() {
+  const hero = useRef<HTMLElement>(null)
+  const laptop = useRef<LaptopController>(null)
+  const [ready, setReady] = useState(false)
+  useScreenDive(hero, laptop, ready)
   return (
-    <section className="hero" id="intro" aria-labelledby="hero-title">
+    <section ref={hero} className="hero" id="intro" aria-labelledby="hero-title" tabIndex={-1}>
       <div className="hero-index">
         <span>Index / 001—004</span>
         <span>Digital practice · 2026</span>
@@ -21,10 +28,12 @@ export function Hero() {
       </div>
 
       <div className="hero-scene">
-        <ArchitecturalViewport />
+        <div className="scene-stage">
+          <ArchitecturalViewport controllerRef={laptop} onAvailability={setReady} />
+        </div>
       </div>
 
-      <div className="hero-scroll" aria-hidden="true"><span>Scroll to inspect</span><i /></div>
+      <div className="hero-scroll" aria-hidden="true"><span>Scroll to enter</span><i /></div>
       <div className="folio-mark" aria-hidden="true">FOLIO / EDITION 02</div>
     </section>
   )

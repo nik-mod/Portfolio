@@ -5,14 +5,17 @@ import { SceneBoundary } from './SceneBoundary'
 
 const LaptopScene = lazy(() => import('./LaptopScene'))
 
-export function ArchitecturalViewport({ controllerRef }: { controllerRef?: Ref<LaptopController> }) {
+export function ArchitecturalViewport({ controllerRef, onAvailability }: {
+  controllerRef?: Ref<LaptopController>
+  onAvailability?: (ready: boolean) => void
+}) {
   const figure = useRef<HTMLElement>(null)
   const [enabled, setEnabled] = useState(false)
   const [ready, setReady] = useState(false)
   const [failed, setFailed] = useState(false)
   const [lowPower, setLowPower] = useState(false)
-  const onReady = useCallback(() => setReady(true), [])
-  const onFailure = useCallback(() => { setReady(false); setFailed(true) }, [])
+  const onReady = useCallback(() => { setReady(true); onAvailability?.(true) }, [onAvailability])
+  const onFailure = useCallback(() => { setReady(false); setFailed(true); onAvailability?.(false) }, [onAvailability])
 
   useEffect(() => {
     const device = navigator as Navigator & { deviceMemory?: number; connection?: { saveData?: boolean } }

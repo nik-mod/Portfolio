@@ -2,7 +2,7 @@ import { SectionMarker } from '../ui/SectionMarker'
 
 export function Contact() {
   return (
-    <section className="section contact" id="contact" aria-labelledby="contact-title">
+    <section className="section contact" id="contact" aria-labelledby="contact-title" tabIndex={-1}>
       <SectionMarker number="04" label="Contact" />
       <div className="contact-copy">
         <p className="eyebrow">Open channel / Details pending</p>

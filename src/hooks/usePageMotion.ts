@@ -55,21 +55,16 @@ export function usePageMotion(scope: RefObject<HTMLElement | null>) {
         })
       }
 
-      select('.section').forEach((section: HTMLElement) => {
+      // Works belongs to the screen-dive handoff; separate reveals would shift
+      // its glyphs while the matching screen texture is fading into the HTML.
+      select('.section:not(.works)').forEach((section: HTMLElement) => {
         reveal(section, Array.from(section.querySelectorAll('.section-marker, .section-intro, .about-heading, .contact-copy')))
-      })
-      select('.project-row').forEach((row: HTMLElement) => {
-        reveal(row, Array.from(row.querySelectorAll('.project-number, .project-title, .project-stage, .project-status')))
       })
       select('.about-copy, .capability-list, .contact-action').forEach((block: HTMLElement) => {
         reveal(block, Array.from(block.children))
       })
 
       if (full) {
-        gsap.to(select('.viewport-plane'), {
-          y: -16, ease: 'none',
-          scrollTrigger: { trigger: select('.hero')[0], start: 'top top', end: 'bottom top', scrub: 0.5 },
-        })
         gsap.fromTo(select('.about-heading h2'), { y: 8 }, {
           y: -8, ease: 'none',
           scrollTrigger: { trigger: select('.about')[0], start: 'top bottom', end: 'bottom top', scrub: 0.5 },

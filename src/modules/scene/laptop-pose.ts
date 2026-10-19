@@ -8,12 +8,21 @@ export type LaptopPose = {
   opening: number
   cameraPosition: Vector3Tuple
   cameraTarget: Vector3Tuple
+  keyLightIntensity: number
+  previewMix: number
 }
+
+export type ScreenFrame = { center: Vector3Tuple; normal: Vector3Tuple; width: number; height: number }
+export type ViewFrame = { left: number; top: number; width: number; height: number; fullWidth: number; fullHeight: number }
 
 export type LaptopController = {
   /** Mutates Three objects and requests a frame; safe for GSAP onUpdate. */
   setPose: (pose: Partial<LaptopPose>) => void
   getPose: () => LaptopPose
+  getScreenFrame: () => ScreenFrame
+  resetPose: () => void
+  setScreenPreview: (canvas: HTMLCanvasElement) => void
+  setViewFrame: (frame: ViewFrame | null) => void
 }
 
 export function studioPose(aspect: number): LaptopPose {
@@ -25,5 +34,7 @@ export function studioPose(aspect: number): LaptopPose {
     opening: 1.92,
     cameraPosition: compact ? [5.8, 5, 9.4] : [5.1, 4.3, 7.4],
     cameraTarget: [0.15, 1.05, 0],
+    keyLightIntensity: 3.2,
+    previewMix: 0,
   }
 }

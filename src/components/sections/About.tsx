@@ -2,7 +2,7 @@ import { SectionMarker } from '../ui/SectionMarker'
 
 export function About() {
   return (
-    <section className="section about" id="about" aria-labelledby="about-title">
+    <section className="section about" id="about" aria-labelledby="about-title" tabIndex={-1}>
       <SectionMarker number="03" label="About" />
       <div className="about-heading">
         <p className="eyebrow">Practice / Working principles</p>

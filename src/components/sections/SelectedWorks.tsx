@@ -1,14 +1,9 @@
 import { SectionMarker } from '../ui/SectionMarker'
-
-const projects = [
-  { number: '01', title: 'Project slot 01', discipline: 'Selected case study', status: 'In curation', tone: 'dark' },
-  { number: '02', title: 'Project slot 02', discipline: 'Selected case study', status: 'To be announced', tone: 'light' },
-  { number: '03', title: 'Project slot 03', discipline: 'Selected case study', status: 'In curation', tone: 'red' },
-] as const
+import { projects } from '../../data/projects'
 
 export function SelectedWorks() {
   return (
-    <section className="section works" id="works" aria-labelledby="works-title">
+    <section className="section works" id="works" aria-labelledby="works-title" tabIndex={-1}>
       <SectionMarker number="02" label="Selected works" />
       <div className="section-intro works-intro">
         <h2 id="works-title">Selected<br />Works</h2>

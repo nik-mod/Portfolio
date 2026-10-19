@@ -1,31 +1,48 @@
-/** Original, local surface artwork. No asset requests or font downloads. */
+import { projects } from '../../data/projects'
+
+/** Original, local preview of the same exhibition index used by the real HTML. */
 export function createDisplayArtwork() {
   const canvas = document.createElement('canvas')
   canvas.width = 1024
   canvas.height = 640
   const ctx = canvas.getContext('2d')!
-  ctx.fillStyle = '#151816'
+  ctx.fillStyle = '#10100f'
   ctx.fillRect(0, 0, 1024, 640)
-  ctx.strokeStyle = '#303632'
+  ctx.strokeStyle = '#30302c'
   ctx.lineWidth = 1
   for (let x = 64; x < 1024; x += 128) {
     ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, 640); ctx.stroke()
   }
-  ctx.fillStyle = '#b9c2ba'
+  ctx.fillStyle = '#eeeade'
   ctx.font = '20px monospace'
   ctx.fillText('NM / DEV', 64, 65)
-  ctx.fillStyle = '#708077'
+  ctx.fillStyle = '#aaa79f'
   ctx.font = '14px monospace'
   ctx.fillText('DESIGN × ENGINEERING', 64, 98)
-  ctx.fillStyle = '#cbd2c9'
-  ctx.font = 'bold 246px Arial'
-  ctx.fillText('01', 335, 405)
+  ctx.fillStyle = '#eeeade'
+  ctx.font = '900 100px "Bahnschrift Condensed", "Arial Narrow", sans-serif'
+  ctx.fillText('SELECTED', 64, 265)
+  ctx.fillText('WORKS', 64, 345)
   ctx.fillStyle = '#86170f'
-  ctx.fillRect(64, 460, 896, 9)
-  ctx.fillStyle = '#8c9b91'
+  ctx.fillRect(64, 390, 360, 5)
+  projects.forEach((project, index) => {
+    const y = 205 + index * 105
+    ctx.fillStyle = '#d25748'
+    ctx.font = '24px monospace'
+    ctx.fillText(project.number, 560, y)
+    ctx.fillStyle = '#eeeade'
+    ctx.font = 'bold 26px "Bahnschrift Condensed", "Arial Narrow", sans-serif'
+    ctx.fillText(project.title.toUpperCase(), 620, y)
+    ctx.fillStyle = '#aaa79f'
+    ctx.font = '12px monospace'
+    ctx.fillText(project.status.toUpperCase(), 620, y + 28)
+    ctx.fillStyle = '#343430'
+    ctx.fillRect(560, y + 55, 400, 1)
+  })
+  ctx.fillStyle = '#aaa79f'
   ctx.font = '16px monospace'
-  ctx.fillText('FORM / FUNCTION', 64, 565)
-  ctx.fillText('DIGITAL PRACTICE', 795, 565)
+  ctx.fillText('SELECTED CASE STUDIES', 64, 565)
+  ctx.fillText('INDEX / 02', 855, 565)
   return canvas
 }
 

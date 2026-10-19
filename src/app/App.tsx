@@ -15,13 +15,15 @@ export function App() {
 
   return (
     <>
-      <a className="skip-link" href="#main-content">Skip to content</a>
+      <a className="skip-link" href="#works">Skip to selected works</a>
       <Header activeSection={activeSection} />
       <main id="main-content" ref={main} tabIndex={-1}>
         <Hero />
-        <SelectedWorks />
-        <About />
-        <Contact />
+        <div className="portfolio-content">
+          <SelectedWorks />
+          <About />
+          <Contact />
+        </div>
       </main>
       <Footer />
     </>
