@@ -284,6 +284,10 @@ main { padding-top: var(--header-h); }
   .plane-a { display: none; }
   .bay-index { top: 11%; font-size: 1rem; }
   .bay-status, .bottom-right { display: none; }
+  @media (max-width: 400px) {
+    /* The tight hero cell puts BAY—01 on the X calibration row; drop it clear. */
+    .bay-index { top: 3.6rem; }
+  }
   .viewport figcaption { top: auto; right: auto; bottom: 2.65rem; left: 1rem; writing-mode: horizontal-tb; transform: none; }
   .hero-copy { grid-column: 1 / 12; grid-row: 4; margin-top: 1.4rem; }
   .section { display: block; padding-block: 5.5rem; }

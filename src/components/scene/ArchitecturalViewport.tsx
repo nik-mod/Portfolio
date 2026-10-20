@@ -55,6 +55,13 @@ export function ArchitecturalViewport({ controllerRef, onAvailability }: {
   useLayoutEffect(() => {
     if (failed) {
       document.documentElement.dataset.nmGate = 'fallback'
+      // The dive never starts on this path; honor the boot sheet's saved
+      // reading position directly.
+      const savedScroll = Number(document.documentElement.dataset.nmSavedScroll ?? 0)
+      if (savedScroll > 1) {
+        delete document.documentElement.dataset.nmSavedScroll
+        window.scrollTo(0, savedScroll)
+      }
       document.dispatchEvent(new Event('nm:scene-ready'))
       return
     }

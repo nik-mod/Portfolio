@@ -117,7 +117,7 @@
   {
     "n": "PROD mid-page reload: not locked",
     "p": true,
-    "d": "{\"lock\":null,\"gate\":\"preparing\",\"boot\":\"opening\",\"mode\":\"quiet\",\"y\":3000,\"diveState\":null,\"diveProgress\":null,\"pinInstalled\":false}"
+    "d": "{\"lock\":null,\"gate\":\"preparing\",\"boot\":\"dismissed\",\"mode\":\"quiet\",\"y\":3000,\"diveState\":null,\"diveProgress\":null,\"pinInstalled\":false}"
   },
   {
     "n": "PROD mid-page reload: reading position preserved",
@@ -221,8 +221,8 @@
   },
   {
     "n": "webkit mid-page reload: position restored",
-    "p": false,
-    "d": "y=0"
+    "p": true,
+    "d": "y=2500"
   },
   {
     "n": "webkit mid-page reload: not locked",

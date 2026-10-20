@@ -102,7 +102,7 @@
   {
     "name": "13 reload: no lock on restored session",
     "pass": true,
-    "detail": "boot=opening"
+    "detail": "boot=dismissed"
   },
   {
     "name": "13 reload: reading position preserved exactly",
@@ -127,7 +127,7 @@
   {
     "name": "B6 mobile unlock then touch scrolls into dive",
     "pass": true,
-    "detail": "scrollY=1870 p=1.0000"
+    "detail": "scrollY=1921 p=1.0000"
   },
   {
     "name": "B uncaught page errors",

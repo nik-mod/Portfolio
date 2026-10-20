@@ -1,6 +1,6 @@
 import { useLayoutEffect, useMemo, useRef, type RefObject } from 'react'
 import { RoundedBox } from '@react-three/drei/core/RoundedBox'
-import { CanvasTexture, Matrix4, SRGBColorSpace, type Group, type InstancedMesh, type MeshBasicMaterial, type Texture } from 'three'
+import { CanvasTexture, Matrix4, SRGBColorSpace, type Group, type InstancedMesh, type MeshBasicMaterial, type MeshStandardMaterial, type Texture } from 'three'
 import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.js'
 import { createDisplayArtwork, createKeyLegends, keycaps } from '../../modules/scene/laptop-surfaces'
 import { RoundedPlate } from './RoundedPlate'
@@ -11,6 +11,7 @@ type ModelProps = {
   simple: boolean
   screenTexture?: Texture
   preview: RefObject<MeshBasicMaterial | null>
+  screenMaterial?: RefObject<MeshStandardMaterial | null>
 }
 
 function Keyboard({ simple }: { simple: boolean }) {
@@ -66,7 +67,7 @@ function SpeakerGrilles() {
 }
 
 /** Original procedural assembly. +Z is the front lip, hinge axis runs along X. */
-export function LaptopModel({ body, lid, simple, screenTexture, preview }: ModelProps) {
+export function LaptopModel({ body, lid, simple, screenTexture, preview, screenMaterial }: ModelProps) {
   const display = useMemo(() => {
     const texture = new CanvasTexture(createDisplayArtwork())
     texture.colorSpace = SRGBColorSpace
@@ -127,7 +128,7 @@ export function LaptopModel({ body, lid, simple, screenTexture, preview }: Model
         </RoundedPlate>
         <mesh name="screen-surface" position={[0, -0.057, 1.48]} rotation={[Math.PI / 2, 0, 0]}>
           <planeGeometry args={[4.44, 2.69]} />
-          <meshStandardMaterial map={screenTexture ?? display} emissiveMap={screenTexture ?? display} emissive="#ffffff" emissiveIntensity={0.28} metalness={0.15} roughness={simple ? 0.4 : 0.24} />
+          <meshStandardMaterial ref={screenMaterial} map={screenTexture ?? display} emissiveMap={screenTexture ?? display} emissive="#ffffff" emissiveIntensity={0.28} metalness={0.15} roughness={simple ? 0.4 : 0.24} />
         </mesh>
         <mesh name="screen-portfolio" position={[0, -0.058, 1.48]} rotation={[Math.PI / 2, 0, 0]}>
           <planeGeometry args={[4.44, 2.69]} />

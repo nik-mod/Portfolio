@@ -1,0 +1,52 @@
+[
+  {
+    "n": "1 slow scroll: progress tracks scroll (no desync)",
+    "p": true,
+    "d": "max deviation=0.000 p=0.5066"
+  },
+  {
+    "n": "5 half-stop: pose stable while holding",
+    "p": true,
+    "d": "p=0.5183->0.5183"
+  },
+  {
+    "n": "3/4 fast direction changes: coherent state",
+    "p": true,
+    "d": "p=0.5162"
+  },
+  {
+    "n": "2 fast scroll: full forward dive + handoff",
+    "p": true,
+    "d": "p=1 portfolioOp=1"
+  },
+  {
+    "n": "10 full reverse restores hero exactly",
+    "p": true,
+    "d": "p=0 title=1"
+  },
+  {
+    "n": "7 resize mid-pin: no overflow, state coherent",
+    "p": true,
+    "d": "p 0.6911->0.691 overflow=-15"
+  },
+  {
+    "n": "9 back/forward: returns to site, ungated, position kept",
+    "p": true,
+    "d": "{\"y\":2000,\"lock\":null,\"sheetHidden\":true,\"url\":\"http://localhost:4173/\"}"
+  },
+  {
+    "n": "stress: no page errors",
+    "p": true,
+    "d": ""
+  },
+  {
+    "n": "8 mobile touch: forward dive progresses",
+    "p": true,
+    "d": "p=1 y=6385"
+  },
+  {
+    "n": "8 mobile touch: reverse dive restores",
+    "p": true,
+    "d": "p=0 y=0"
+  }
+]

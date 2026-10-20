@@ -3,6 +3,7 @@ import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Lenis from 'lenis'
 import 'lenis/dist/lenis.css'
+import { registerImmediateScroller } from '../modules/motion/scroll-commands'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -34,6 +35,17 @@ export function usePageMotion(scope: RefObject<HTMLElement | null>) {
       // unlock cannot fire a stale dive.
       const lenisLock = () => lenis?.stop()
       const lenisUnlock = () => lenis?.start()
+      // Lenis ignores native scrolls while animating a wheel target and
+      // overwrites them on its next frame. Keyboard PageDown/End and
+      // find-in-page must win, so adopt any native position that diverges
+      // from the running animation.
+      const adoptExternalScroll = () => {
+        if (!lenis || lenis.isStopped || lenis.isScrolling !== 'smooth') return
+        const animated = (lenis as unknown as { animatedScroll: number }).animatedScroll
+        if (Math.abs(window.scrollY - animated) > 40) {
+          lenis.scrollTo(window.scrollY, { immediate: true, force: true })
+        }
+      }
 
       if (full) {
         lenis = new Lenis({ autoRaf: false, lerp: 0.12, syncTouch: false })
@@ -41,7 +53,11 @@ export function usePageMotion(scope: RefObject<HTMLElement | null>) {
         gsap.ticker.add(tick)
         document.addEventListener('nm:scroll-lock', lenisLock)
         document.addEventListener('nm:scroll-unlock', lenisUnlock)
+        window.addEventListener('scroll', adoptExternalScroll, { passive: true })
         if (document.documentElement.dataset.nmScrollLock === 'true') lenis.stop()
+        // Own every programmatic document scroll so a jump can never lose to
+        // a pending wheel animation.
+        registerImmediateScroller((target) => lenis!.scrollTo(target, { immediate: true, force: true }))
       }
 
       // No CSS-hidden initial state: content remains available if JS fails.
@@ -92,6 +108,8 @@ export function usePageMotion(scope: RefObject<HTMLElement | null>) {
       return () => {
         disposed = true
         gsap.ticker.remove(tick)
+        registerImmediateScroller(null)
+        window.removeEventListener('scroll', adoptExternalScroll)
         document.removeEventListener('nm:scroll-lock', lenisLock)
         document.removeEventListener('nm:scroll-unlock', lenisUnlock)
         lenis?.off('scroll', ScrollTrigger.update)

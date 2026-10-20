@@ -1,7 +1,7 @@
 import { useCallback, useImperativeHandle, useLayoutEffect, useRef, type Ref } from 'react'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import { Lightformer } from '@react-three/drei/core/Lightformer'
-import { ACESFilmicToneMapping, CanvasTexture, PerspectiveCamera, SRGBColorSpace, Vector3, type Camera, type DirectionalLight, type Group, type MeshBasicMaterial, type Texture } from 'three'
+import { ACESFilmicToneMapping, CanvasTexture, MeshStandardMaterial, PerspectiveCamera, SRGBColorSpace, Vector3, type Camera, type DirectionalLight, type Group, type MeshBasicMaterial, type Texture } from 'three'
 import { studioPose, type LaptopController, type LaptopPose, type ViewFrame } from '../../modules/scene/laptop-pose'
 import { LaptopModel } from './LaptopModel'
 import { StudioEnvironment } from './StudioEnvironment'
@@ -41,6 +41,7 @@ function Studio({ onReady, onPresented, onFailure, controllerRef, screenTexture,
   const lid = useRef<Group>(null)
   const keyLight = useRef<DirectionalLight>(null)
   const preview = useRef<MeshBasicMaterial>(null)
+  const screenMaterial = useRef<MeshStandardMaterial>(null)
   const previewTexture = useRef<CanvasTexture>(null)
   const controlled = useRef(false)
   const viewFrame = useRef<ViewFrame | null>(null)
@@ -68,6 +69,14 @@ function Studio({ onReady, onPresented, onFailure, controllerRef, screenTexture,
     if (lid.current) lid.current.rotation.x = -value.opening
     if (keyLight.current) keyLight.current.intensity = value.keyLightIntensity
     if (preview.current) preview.current.opacity = previewTexture.current ? value.previewMix : 0
+    // The baked artwork yields to the captured screen against black, fully
+    // dimmed before the capture reaches readable opacity, so the mid-dive
+    // crossfade can never show both contents misaligned.
+    if (screenMaterial.current) {
+      const glow = Math.max(0, 1 - value.previewMix * 2.5)
+      screenMaterial.current.emissiveIntensity = 0.28 * glow
+      screenMaterial.current.color.setScalar(glow)
+    }
     camera.position.fromArray(value.cameraPosition)
     camera.lookAt(...value.cameraTarget)
     projectFrame(camera, viewFrame.current, layout.current.width / layout.current.height)
@@ -212,7 +221,7 @@ function Studio({ onReady, onPresented, onFailure, controllerRef, screenTexture,
       <Lightformer form="rect" intensity={2.5} position={[4, 2, -4]} scale={[2, 5, 1]} target={[0, 0, 0]} />
       <Lightformer form="rect" intensity={1.5} position={[0, 6, -1]} scale={[6, 2, 1]} target={[0, 0, 0]} />
     </StudioEnvironment>
-    <LaptopModel body={body} lid={lid} preview={preview} simple={Boolean(simple)} screenTexture={screenTexture} />
+    <LaptopModel body={body} lid={lid} preview={preview} simple={Boolean(simple)} screenTexture={screenTexture} screenMaterial={screenMaterial} />
     {!simple && <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.49, 0]} receiveShadow>
       <planeGeometry args={[30, 30]} /><shadowMaterial transparent opacity={0.27} />
     </mesh>}

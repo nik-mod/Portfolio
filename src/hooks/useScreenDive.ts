@@ -3,6 +3,7 @@ import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { studioPose, type LaptopController, type Vector3Tuple } from '../modules/scene/laptop-pose'
 import { capturePortfolio } from '../modules/scene/capture-portfolio'
+import { scrollDocumentTo } from '../modules/motion/scroll-commands'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -166,10 +167,10 @@ export function useScreenDive(
           timeline.progress(1)
           lastProgress = -1
           render()
-          trigger.scroll(window.scrollY + reading.element.getBoundingClientRect().top - header - reading.gap)
+          scrollDocumentTo(window.scrollY + reading.element.getBoundingClientRect().top - header - reading.gap)
           ScrollTrigger.update()
         } else if (progress !== null && timeline) {
-          trigger.scroll(trigger.start + (trigger.end - trigger.start) * progress)
+          scrollDocumentTo(trigger.start + (trigger.end - trigger.start) * progress)
           timeline.progress(progress)
           ScrollTrigger.update()
         }
@@ -191,12 +192,20 @@ export function useScreenDive(
         }).to(playhead, { progress: 1, duration: 1, ease: 'none' })
         measure()
         ScrollTrigger.sort()
+        // App-owned restoration: the boot sheet saves the offset and hands it
+        // over here, once the pin's spacing exists — exact, never clamped by
+        // the temporarily shorter unpinned document. The clamp heuristic below
+        // only covers entries that bypassed the boot script.
+        const savedScroll = preserveEnd ? Number(document.documentElement.dataset.nmSavedScroll ?? 0) : 0
         // Native restoration clamps an end-of-document position against the
         // unpinned (shorter) page before this pin adds its spacing back.
-        const clampedEnd = preserveEnd &&
+        const clampedEnd = !savedScroll &&
           Math.abs(window.scrollY - (document.documentElement.scrollHeight - window.innerHeight)) < 2
         ScrollTrigger.refresh()
-        if (clampedEnd) window.scrollTo(0, document.documentElement.scrollHeight - window.innerHeight)
+        if (savedScroll > 1) {
+          delete document.documentElement.dataset.nmSavedScroll
+          scrollDocumentTo(savedScroll)
+        } else if (clampedEnd) scrollDocumentTo(document.documentElement.scrollHeight - window.innerHeight)
         if (!interactive) heldProgress = timeline.scrollTrigger!.progress
         hero.dataset.diveState = interactive ? 'active' : 'restoring'
         lastProgress = -1
@@ -208,7 +217,7 @@ export function useScreenDive(
         if (!trigger || !timeline) return
         // Explicit navigation is a direct-HTML bypass, not cinematic motion.
         if (!interactive) heldProgress = 1
-        window.scrollTo({ top: trigger.end, behavior: 'instant' })
+        scrollDocumentTo(trigger.end)
         ScrollTrigger.update()
         timeline.progress(1)
         render()
@@ -223,7 +232,7 @@ export function useScreenDive(
           if (timeline) {
             heldProgress = 0
             anchorFraction = 0
-            window.scrollTo({ top: Math.max(0, timeline.scrollTrigger!.start), behavior: 'instant' })
+            scrollDocumentTo(Math.max(0, timeline.scrollTrigger!.start))
             ScrollTrigger.update()
             timeline.progress(0)
             lastProgress = -1
@@ -243,11 +252,32 @@ export function useScreenDive(
         if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.altKey || event.shiftKey) return
         const link = event.target instanceof Element ? event.target.closest<HTMLAnchorElement>('a[href^="#"]') : null
         const hash = link?.getAttribute('href')
+        // Capture where the reader is leaving FROM before navigate() scrolls.
+        const leavingFrom = Math.round(window.scrollY)
         if (!hash || !navigate(hash, true)) return
         event.preventDefault()
-        if (location.hash !== hash) history.pushState(null, '', hash)
+        if (location.hash !== hash) {
+          // Tag the entry being left with its reading position so a later
+          // back/forward traversal can return to it exactly.
+          try {
+            history.replaceState({ nmY: leavingFrom }, '', location.href)
+            history.pushState({ nmY: null }, '', hash)
+          } catch { /* history states are best-effort */ }
+        }
       }
-      const hashChanged = () => { navigate(location.hash, false) }
+      const hashChanged = () => { if (!traversingHistory) navigate(location.hash, false) }
+      // Back/forward traversals restore the entry's own scroll position;
+      // navigating to the hash here would fight the browser and land the
+      // reader at the wrong offset. Manual hash edits still navigate.
+      let traversingHistory = false
+      const markTraversal = (event: PopStateEvent) => {
+        traversingHistory = true
+        queueMicrotask(() => { traversingHistory = false })
+        const saved = (event.state as { nmY?: number } | null)?.nmY
+        if (typeof saved === 'number' && saved > 1) {
+          requestAnimationFrame(() => { if (!disposed) scrollDocumentTo(saved) })
+        }
+      }
 
       const focusPortfolio = (event: FocusEvent) => {
         if (event.target instanceof HTMLElement && portfolio.contains(event.target) && timeline && timeline.scrollTrigger!.progress < 1) {
@@ -259,6 +289,7 @@ export function useScreenDive(
       document.addEventListener('focusin', focusPortfolio)
       document.addEventListener('click', anchorClick)
       window.addEventListener('hashchange', hashChanged)
+      window.addEventListener('popstate', markTraversal)
       const activate = () => {
         if (interactive || disposed) return
         // Preserve the already-presented pose if a restored visitor moved while
@@ -305,6 +336,7 @@ export function useScreenDive(
         document.removeEventListener('focusin', focusPortfolio)
         document.removeEventListener('click', anchorClick)
         window.removeEventListener('hashchange', hashChanged)
+        window.removeEventListener('popstate', markTraversal)
         hero.removeEventListener('nm:scene-interactive', activate)
         window.removeEventListener('resize', resizePreparation)
         hero.classList.remove('is-cinematic')

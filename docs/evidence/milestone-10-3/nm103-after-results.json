@@ -1,0 +1,37 @@
+[
+  {
+    "n": "B-after PROD: scan animates on refresh (quiet)",
+    "p": true,
+    "d": "distinct positions=14 samples=[329.8,340.8,367,412.3,471.5,540.7]"
+  },
+  {
+    "n": "B-after DEV-5174: scan animates on refresh (quiet)",
+    "p": true,
+    "d": "distinct positions=14 samples=[331.2,346.2,377,427.1,494.4,565.7]"
+  },
+  {
+    "n": "C-after: restored position kept (mid-dive reload)",
+    "p": true,
+    "d": "y=1800"
+  },
+  {
+    "n": "C-after: boot sheet dismissed over restored content",
+    "p": true,
+    "d": "op=0"
+  },
+  {
+    "n": "C-after-2: top refresh still locked (deferred lock)",
+    "p": true,
+    "d": "{\"y\":0,\"lock\":\"true\"}"
+  },
+  {
+    "n": "screen-after live: mid-dive reached",
+    "p": true,
+    "d": "p=0.622"
+  },
+  {
+    "n": "screen-after restored: mid-dive reached",
+    "p": true,
+    "d": "p=0.622"
+  }
+]
