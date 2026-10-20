@@ -1,6 +1,24 @@
 # Creative Developer Portfolio
 
-Milestone 05 adds a reversible, pinned screen dive to Nika Modebadze's procedural React Three Fiber laptop. The Machine Editorial composition, personal identity, NM / DEV screen branding, and existing GSAP/Lenis lifecycle remain in place.
+Nika Modebadze's personal React/TypeScript portfolio, with the Machine Editorial identity, original conceptual website studies, personal portrait, CV download and a procedural React Three Fiber laptop.
+
+## Current readiness lifecycle (Milestone 10)
+
+NM/01 is critically styled HTML/CSS, independent of WebGL. Scene/controller availability starts preparation only: responsive initial framing, the real Selected Works screen texture, asynchronous shader compilation and GPU-completed stable frames. `ArchitecturalViewport` owns presentation and signals interaction readiness only when its actual reveal animations complete. No fixed loading duration declares the scene ready.
+
+Fresh visits do not install the cinematic pin or advance its timeline while preparing. Native scrolling, section links, Skip and keyboard focus retain direct HTML access. If the visitor leaves Intro before readiness, the scene stays a static enhancement; deliberately returning to Intro enables the ready cinematic sequence. Native restoration can reserve its previous pin space early, but its initial pose is held until presentation completes. Reduced motion, weak-device hints, failed capture, unavailable WebGL and load/context failures use accessible static/direct alternatives.
+
+There is no unconditional body scroll lock, focus trap or additional animation clock. The original phase curves, laptop geometry, camera, model materials and subsequent sections are preserved. Historical milestone notes below describe how the site evolved; the current audit is in `docs/milestone-10-audit.md`.
+
+## Production preparation
+
+Use a Node.js release supported by Vite (`^20.19.0` or `>=22.12.0`; local QA uses Node 24) and run `npm ci`, then the three verification scripts below. The deployable output is `dist/`; `npm run preview` is a local verification server, not the production host.
+
+Vercel can use the Vite framework preset with build command `npm run build` and output directory `dist`. This site navigates with fragment anchors, not pathname routes, so it does not need a catch-all SPA rewrite. Keep real missing assets as missing assets. No application environment variables or backend message service are required. Never put private credentials in `VITE_*` variables; those are client-visible. Local `.env*` and `.vercel/` state are ignored.
+
+Before go-live approval, confirm the actual domain and social/canonical metadata, deployed asset/cache/security headers, real-device and cross-engine acceptance, and the final audit's outstanding risks. Do not add a restrictive CSP without accounting for the critical inline boot script/styles and the local SVG/data-image screen capture. No deployment, push or commit is part of this milestone.
+
+Deployment reference: [Vite on Vercel](https://vercel.com/docs/frameworks/frontend/vite).
 
 ## Setup
 
@@ -75,4 +93,4 @@ The skip link targets Selected Works. Section links resolve against the real pin
 
 Verification scripts/screenshots are kept outside the source tree in this chat's visualization directory. Browser validation covers forward/reverse sample poses, screen coverage, release continuity, demand rendering, resize/refresh, anchors, keyboard skip/focus, live reduced-motion changes, load/context failures, and React/GPU teardown. Chrome emulation does not establish real-device frame rates or cross-browser SVG-capture behavior.
 
-Deferred: real case studies and contact details, and Milestone 06 features.
+The older milestone notes above are historical. Current conceptual studies are explicitly labelled as concepts, personal contact links and the exact CV PDF are integrated, and no client histories or project results are claimed.

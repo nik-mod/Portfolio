@@ -27,6 +27,11 @@ export function useScreenDive(
     if (!hero || !controller || !portfolio || !available) return
     const media = gsap.matchMedia()
     media.add('(prefers-reduced-motion: no-preference)', () => {
+      const navigation = performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming | undefined
+      const restoring = (navigation?.type === 'reload' || navigation?.type === 'back_forward') &&
+        (!location.hash || location.hash === '#intro') && document.documentElement.dataset.nmBootInput !== 'true'
+      const readingTop = !restoring && window.scrollY > 1 && portfolio.getBoundingClientRect().top < window.innerHeight
+        ? portfolio.getBoundingClientRect().top : null
       const anchor = hero.querySelector<HTMLElement>('.hero-scene')!
       const stage = hero.querySelector<HTMLElement>('.scene-stage')!
       const viewport = hero.querySelector<HTMLElement>('.viewport')!
@@ -40,7 +45,13 @@ export function useScreenDive(
       let left = 0, top = 0, sceneWidth = 0, sceneHeight = 0
       let base = studioPose(1.6)
       let captureKey = '', version = 0, disposed = false
+      let timeline: gsap.core.Timeline | undefined
+      let interactive = false, heldProgress = 0, lastProgress = -1
+      let anchorProgress = 0, anchorFraction = 0
+      let resizeReading: { element: HTMLElement; gap: number } | null = null
+      let resizePhase: number | null = null
       hero.classList.add('is-cinematic')
+      hero.dataset.diveState = 'preparing'
 
       const measure = () => {
         header = document.querySelector('header')!.getBoundingClientRect().height
@@ -54,8 +65,11 @@ export function useScreenDive(
         sceneHeight = anchor.offsetHeight
         distance = height * (width > 820 ? 3.6 : width > 560 ? 2.8 : 2.4)
         base = studioPose(sceneWidth / sceneHeight)
-        portfolio.style.marginTop = `${-height}px`
-        portfolio.style.transformOrigin = `50% ${height / 2}px`
+        lastProgress = -1
+        if (timeline) {
+          portfolio.style.marginTop = `${-height}px`
+          portfolio.style.transformOrigin = `50% ${height / 2}px`
+        }
         const key = `${width}:${height}`
         if (captureKey !== key) {
           captureKey = key
@@ -69,14 +83,21 @@ export function useScreenDive(
           }).then(canvas => {
             if (!disposed && generation === version) controller.setScreenPreview(canvas)
           }).catch(() => {
-            // Canvas capture is an enhancement. The shared-content preview and
-            // accessible HTML handoff remain usable if a browser rejects it.
+            // A missing required texture must use direct HTML, not arm a dive
+            // whose WebGL screen cannot match its destination.
+            if (!disposed && generation === version) controller.setScreenPreview(null)
           })
         }
       }
 
       const render = () => {
-        const p = playhead.progress
+        const raw = playhead.progress
+        const p = !interactive ? heldProgress : anchorFraction > 0
+          ? raw < anchorFraction ? anchorProgress * raw / anchorFraction
+            : anchorProgress + (1 - anchorProgress) * (raw - anchorFraction) / (1 - anchorFraction || 1)
+          : raw
+        if (p === lastProgress) return
+        lastProgress = p
         const reveal = phase(p, 0, 0.2)
         const open = phase(p, 0.2, 0.45)
         const align = phase(p, 0.45, 0.65)
@@ -127,32 +148,65 @@ export function useScreenDive(
 
         // The sole HTML portfolio occupies the hero's footprint as pinning ends.
         // Opacity never removes content from the accessibility tree.
-        const alpha = phase(p, 0.9, 0.985)
-        portfolio.style.opacity = `${alpha}`
-        const htmlScale = 0.92 / mix(0.97, 0.92, enter)
-        portfolio.style.transform = p >= 0.88 && p < 1 ? `translate3d(0,${-(1 - p) * distance}px,0) scale(${htmlScale})` : ''
-        portfolio.style.pointerEvents = p >= 0.985 ? '' : 'none'
+        if (timeline) {
+          const alpha = phase(p, 0.9, 0.985)
+          portfolio.style.opacity = `${alpha}`
+          const htmlScale = 0.92 / mix(0.97, 0.92, enter)
+          portfolio.style.transform = p >= 0.88 && p < 1 ? `translate3d(0,${-(1 - p) * distance}px,0) scale(${htmlScale})` : ''
+          portfolio.style.pointerEvents = p >= 0.985 ? '' : 'none'
+        }
         hero.dataset.diveProgress = p.toFixed(4)
       }
 
-      measure()
-      const timeline = gsap.timeline({
-        onUpdate: render,
-        scrollTrigger: {
-          id: 'screen-dive', trigger: hero, pin: true, pinSpacing: true,
-          start: () => `top top+=${header}`,
-          end: () => `+=${distance}`,
-          scrub: true, invalidateOnRefresh: true, refreshPriority: 1,
-          onRefreshInit: measure,
-          onRefresh: render,
-        },
-      }).to(playhead, { progress: 1, duration: 1, ease: 'none' })
-      const trigger = timeline.scrollTrigger!
+      const refreshed = (trigger: ScrollTrigger) => {
+        const reading = resizeReading, progress = resizePhase
+        resizeReading = null
+        resizePhase = null
+        if (reading?.element.isConnected && timeline) {
+          timeline.progress(1)
+          lastProgress = -1
+          render()
+          trigger.scroll(window.scrollY + reading.element.getBoundingClientRect().top - header - reading.gap)
+          ScrollTrigger.update()
+        } else if (progress !== null && timeline) {
+          trigger.scroll(trigger.start + (trigger.end - trigger.start) * progress)
+          timeline.progress(progress)
+          ScrollTrigger.update()
+        }
+        render()
+      }
+
+      const startTimeline = () => {
+        if (timeline || disposed) return
+        timeline = gsap.timeline({
+          onUpdate: render,
+          scrollTrigger: {
+            id: 'screen-dive', trigger: hero, pin: true, pinSpacing: true,
+            start: () => `top top+=${header}`,
+            end: () => `+=${distance}`,
+            scrub: true, invalidateOnRefresh: true, refreshPriority: 1,
+            onRefreshInit: measure,
+            onRefresh: refreshed,
+          },
+        }).to(playhead, { progress: 1, duration: 1, ease: 'none' })
+        measure()
+        ScrollTrigger.sort()
+        ScrollTrigger.refresh()
+        if (!interactive) heldProgress = timeline.scrollTrigger!.progress
+        hero.dataset.diveState = interactive ? 'active' : 'restoring'
+        lastProgress = -1
+        render()
+      }
 
       const finish = () => {
+        const trigger = timeline?.scrollTrigger
+        if (!trigger || !timeline) return
+        // Explicit navigation is a direct-HTML bypass, not cinematic motion.
+        if (!interactive) heldProgress = 1
         window.scrollTo({ top: trigger.end, behavior: 'instant' })
         ScrollTrigger.update()
         timeline.progress(1)
+        render()
       }
       // Native #intro resolves to the pin's transformed box after release. Use
       // the trigger's real start/end, then return to native section positioning.
@@ -160,12 +214,21 @@ export function useScreenDive(
         const target = document.getElementById(hash.slice(1))
         if (!target || (target !== hero && !portfolio.contains(target))) return false
         if (target === hero) {
-          window.scrollTo({ top: Math.max(0, trigger.start), behavior: 'instant' })
-          ScrollTrigger.update()
-          timeline.progress(0)
+          if (interactive) startTimeline()
+          if (timeline) {
+            heldProgress = 0
+            anchorFraction = 0
+            window.scrollTo({ top: Math.max(0, timeline.scrollTrigger!.start), behavior: 'instant' })
+            ScrollTrigger.update()
+            timeline.progress(0)
+            lastProgress = -1
+            render()
+          } else target.scrollIntoView({ block: 'start', behavior: 'instant' })
         } else {
           finish()
-          target.scrollIntoView({ block: 'start', behavior: 'instant' })
+          // finish already aligns Works with the real header. Native scroll-
+          // margin would move a hash-restored mobile view back into the pin.
+          if (!timeline || target.id !== 'works') target.scrollIntoView({ block: 'start', behavior: 'instant' })
           ScrollTrigger.update()
         }
         if (focus) target.focus({ preventScroll: true })
@@ -182,7 +245,7 @@ export function useScreenDive(
       const hashChanged = () => { navigate(location.hash, false) }
 
       const focusPortfolio = (event: FocusEvent) => {
-        if (event.target instanceof HTMLElement && portfolio.contains(event.target) && trigger.progress < 1) {
+        if (event.target instanceof HTMLElement && portfolio.contains(event.target) && timeline && timeline.scrollTrigger!.progress < 1) {
           finish()
           if (event.target.id !== 'works') event.target.scrollIntoView({ block: 'nearest', behavior: 'instant' })
           ScrollTrigger.update()
@@ -191,21 +254,54 @@ export function useScreenDive(
       document.addEventListener('focusin', focusPortfolio)
       document.addEventListener('click', anchorClick)
       window.addEventListener('hashchange', hashChanged)
-      // Sort the new pin before the existing downstream section reveals.
-      ScrollTrigger.sort()
-      ScrollTrigger.refresh()
+      const activate = () => {
+        if (interactive || disposed) return
+        // Preserve the already-presented pose if a restored visitor moved while
+        // the reveal was running; the unchanged phase curves stay reversible.
+        if (timeline) {
+          anchorProgress = heldProgress
+          anchorFraction = timeline.scrollTrigger!.progress
+        }
+        interactive = true
+        const atIntro = window.scrollY <= Math.max(1, hero.offsetTop - header + 1)
+        if (!timeline && atIntro && (!location.hash || location.hash === '#intro') && !portfolio.contains(document.activeElement)) startTimeline()
+        hero.dataset.diveState = timeline ? 'active' : 'direct'
+        lastProgress = -1
+        render()
+      }
+      const resizePreparation = () => {
+        if (!timeline) { measure(); render(); return }
+        if (window.innerWidth === width && Math.abs(window.innerHeight - height - header) < 1) return
+        if (resizeReading || resizePhase !== null) return
+        if (lastProgress >= .985) {
+          const element = Array.from(portfolio.querySelectorAll<HTMLElement>(':scope > .section'))
+            .find(section => section.getBoundingClientRect().bottom > header + 1)
+          if (element) resizeReading = { element, gap: element.getBoundingClientRect().top - header }
+        } else resizePhase = timeline.scrollTrigger!.progress
+      }
+      hero.addEventListener('nm:scene-interactive', activate)
+      window.addEventListener('resize', resizePreparation)
+      measure()
       render()
-      if (location.hash) navigate(location.hash, false)
+      // Only native restoration reserves pin space before presentation. Its
+      // initial pose is held, never scrubbed, until the verified reveal finishes.
+      if (restoring) startTimeline()
+      if (viewport.dataset.interactionReady === 'true') activate()
+      if (location.hash && (location.hash !== '#intro' || (!restoring && window.scrollY <= 1))) navigate(location.hash, false)
+      else if (readingTop !== null && !timeline) window.scrollBy(0, portfolio.getBoundingClientRect().top - readingTop)
 
       return () => {
         disposed = true
+        const trigger = timeline?.scrollTrigger
         const current = window.scrollY
-        const wasInside = current > trigger.start && current <= trigger.end
+        const wasInside = trigger && current > trigger.start && current <= trigger.end
         const before = portfolio.getBoundingClientRect().top
-        timeline.revert()
+        timeline?.revert()
         document.removeEventListener('focusin', focusPortfolio)
         document.removeEventListener('click', anchorClick)
         window.removeEventListener('hashchange', hashChanged)
+        hero.removeEventListener('nm:scene-interactive', activate)
+        window.removeEventListener('resize', resizePreparation)
         hero.classList.remove('is-cinematic')
         hero.style.removeProperty('--cinema-height')
         hero.style.removeProperty('--cinema-width')
@@ -213,6 +309,7 @@ export function useScreenDive(
         hero.style.removeProperty('--canvas-top')
         hero.style.removeProperty('--dive-frame-opacity')
         delete hero.dataset.diveProgress
+        delete hero.dataset.diveState
         stage.removeAttribute('style')
         viewport.style.removeProperty('clip-path')
         viewport.style.removeProperty('background-color')
@@ -223,7 +320,9 @@ export function useScreenDive(
         queueMicrotask(() => {
           if (!hero.isConnected || !portfolio.isConnected) return
           if (wasInside) portfolio.scrollIntoView({ block: 'start', behavior: 'instant' })
-          else if (current > trigger.end) window.scrollBy(0, portfolio.getBoundingClientRect().top - before)
+          else if ((trigger && current > trigger.end) || (!trigger && current > 0 && before < window.innerHeight)) {
+            window.scrollBy(0, portfolio.getBoundingClientRect().top - before)
+          }
           ScrollTrigger.refresh()
         })
       }

@@ -1,7 +1,7 @@
 import { SectionMarker } from '../ui/SectionMarker'
 import { AboutSculpture } from '../ui/AboutSculpture'
-import { useLayoutEffect, useRef } from 'react'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { useRef } from 'react'
+import { useSkillAccordion } from '../../hooks/useSkillAccordion'
 
 const skillGroups = [
   { number: '01', title: 'Frontend', kind: 'Core', skills: ['React', 'JavaScript', 'TypeScript', 'HTML', 'CSS', 'SCSS', 'Tailwind CSS', 'Next.js'] },
@@ -12,17 +12,7 @@ const skillGroups = [
 
 export function About() {
   const skills = useRef<HTMLElement>(null)
-  useLayoutEffect(() => {
-    let frame = 0
-    const refresh = () => {
-      cancelAnimationFrame(frame)
-      // Native details changes document height; refresh existing triggers once.
-      frame = requestAnimationFrame(() => ScrollTrigger.refresh())
-    }
-    const index = skills.current
-    index?.addEventListener('toggle', refresh, true)
-    return () => { cancelAnimationFrame(frame); index?.removeEventListener('toggle', refresh, true) }
-  }, [])
+  useSkillAccordion(skills)
   return (
     <section className="section about" id="about" aria-labelledby="about-title" tabIndex={-1}>
       <SectionMarker number="03" label="About" />
@@ -63,7 +53,7 @@ export function About() {
         {skillGroups.map(group => (
           <details className="skill-group" key={group.number} open={group.number === '01'}>
             <summary><span className="skill-number">{group.number}</span><span className="skill-category">{group.kind}</span><span className="skill-category-title">{group.title}</span><span className="skill-toggle" aria-hidden="true">↗</span></summary>
-            <ul>{group.skills.map(skill => <li key={skill}>{skill}</li>)}</ul>
+            <div className="skill-content"><ul>{group.skills.map(skill => <li key={skill}>{skill}</li>)}</ul></div>
           </details>
         ))}
       </section>

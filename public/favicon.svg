@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
+  <rect width="48" height="48" fill="#10100f"/>
+  <rect x="1" y="1" width="46" height="46" fill="none" stroke="#eeeade" stroke-opacity=".3"/>
+  <text x="24" y="30" fill="#d25748" text-anchor="middle" font-family="monospace" font-size="18" font-weight="700" letter-spacing="-1">NM</text>
+</svg>

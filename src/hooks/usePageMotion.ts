@@ -37,12 +37,14 @@ export function usePageMotion(scope: RefObject<HTMLElement | null>) {
       }
 
       // No CSS-hidden initial state: content remains available if JS fails.
-      const intro = gsap.timeline({ defaults: { ease: 'power3.out', duration: full ? 0.9 : 0.4 } })
-      intro.from(select('.hero-index'), { opacity: 0, y: 8 })
-        .from(select('.hero-title > span'), { opacity: 0, yPercent: full ? 28 : 10, stagger: 0.13 }, 0.08)
-        .from(select('.hero-scene'), { opacity: 0, y: full ? 18 : 6, scale: full ? 0.985 : 1 }, 0.18)
-        .from(select('.machine-hinge'), { scaleX: 0, transformOrigin: 'left center', duration: 0.65 }, 0.4)
-        .from(select('.hero-copy, .hero-scroll'), { opacity: 0, y: 10, stagger: 0.08 }, 0.48)
+      // The critical NM/01 identity sheet owns the first impression. Its type
+      // registers directly onto this final Hero, without replaying an entrance.
+      if (!document.documentElement.dataset.nmBoot) {
+        gsap.timeline({ defaults: { ease: 'power3.out', duration: full ? 0.9 : 0.4 } })
+          .from(select('.hero-index'), { opacity: 0, y: 8 })
+          .from(select('.hero-title > span'), { opacity: 0, yPercent: full ? 28 : 10, stagger: 0.13 }, 0.08)
+          .from(select('.hero-copy, .hero-scroll'), { opacity: 0, y: 10, stagger: 0.08 }, 0.48)
+      }
 
       const reveal = (trigger: Element, targets: Element[]) => {
         gsap.from(targets, {

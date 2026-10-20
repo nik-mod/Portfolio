@@ -15,9 +15,9 @@ export function Footer() {
       // otherwise leaves later characters visible before their individual start.
       gsap.set(letters, { yPercent: 110, opacity: 0 })
       gsap.set(message, { opacity: 0, y: 8 })
-      gsap.timeline({ id: 'footer-signature', scrollTrigger: { id: 'footer-signature', trigger: scope.current, start: 'top 88%', end: 'clamp(bottom bottom)', scrub: .35, invalidateOnRefresh: true } })
-        .to(letters, { yPercent: 0, opacity: 1, duration: .7, stagger: .055, ease: 'power3.out' })
-        .to(message, { opacity: 1, y: 0, duration: .3, ease: 'power2.out' }, 1.12)
+      gsap.timeline({ id: 'footer-signature', scrollTrigger: { id: 'footer-signature', trigger: scope.current, start: 'top 92%', end: 'clamp(bottom bottom)', scrub: .6, invalidateOnRefresh: true } })
+        .to(letters, { yPercent: 0, opacity: 1, duration: .95, stagger: .09, ease: 'power2.out' })
+        .to(message, { opacity: 1, y: 0, duration: .3, ease: 'power2.out' }, 1.92)
     }, scope)
     return () => media.revert()
   }, [])

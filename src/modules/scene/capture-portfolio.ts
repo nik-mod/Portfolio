@@ -1,17 +1,25 @@
 type ScreenRect = { left: number; top: number; width: number; height: number }
+const captureJobs = new WeakMap<HTMLElement, symbol>()
 
 /** Rasterize this local, image-free section once per layout, not per frame.
  * Inline computed styles preserve the actual responsive grid and local fonts.
  */
 export async function capturePortfolio(section: HTMLElement, width: number, height: number, screen: ScreenRect) {
+  const job = Symbol()
+  captureJobs.set(section, job)
   await document.fonts.ready
   const clone = section.cloneNode(true) as HTMLElement
   const source = [section, ...Array.from(section.querySelectorAll<HTMLElement>('*'))]
   const target = [clone, ...Array.from(clone.querySelectorAll<HTMLElement>('*'))]
-  source.forEach((element, index) => {
+  let budget = performance.now()
+  const browserScheduler = globalThis as typeof globalThis & { scheduler?: { yield: () => Promise<void> } }
+  for (const [index, element] of source.entries()) {
+    if (!section.isConnected || captureJobs.get(section) !== job) throw new DOMException('Capture superseded', 'AbortError')
     const computed = getComputedStyle(element)
     const copy = target[index]
-    for (const property of Array.from(computed)) copy.style.setProperty(property, computed.getPropertyValue(property))
+    // One CSSOM write per node instead of repeatedly reparsing its declaration.
+    // Keep every computed value: the generated handoff image must not change.
+    copy.style.cssText = Array.from(computed, property => `${property}:${computed.getPropertyValue(property)};`).join('')
     copy.removeAttribute('id')
     copy.style.animation = 'none'
     copy.style.transition = 'none'
@@ -19,7 +27,13 @@ export async function capturePortfolio(section: HTMLElement, width: number, heig
     if (element.matches('.section, .section-marker, .section-intro, .project-number, .project-title, .project-stage, .project-status')) {
       copy.style.transform = 'none'
     }
-  })
+    // Finite startup work, not an animation clock: give input and paint a turn.
+    if (performance.now() - budget > 5) {
+      if (browserScheduler.scheduler?.yield) await browserScheduler.scheduler.yield()
+      else await new Promise<void>(resolve => setTimeout(resolve, 0))
+      budget = performance.now()
+    }
+  }
   Object.assign(clone.style, { margin: '0', width: `${width}px`, position: 'relative', top: '0', left: '0' })
   const pseudoStyle = getComputedStyle(section, '::before')
   if (pseudoStyle.content !== 'none' && pseudoStyle.display !== 'none') {

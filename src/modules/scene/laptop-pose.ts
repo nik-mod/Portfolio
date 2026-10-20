@@ -21,7 +21,7 @@ export type LaptopController = {
   getPose: () => LaptopPose
   getScreenFrame: () => ScreenFrame
   resetPose: () => void
-  setScreenPreview: (canvas: HTMLCanvasElement) => void
+  setScreenPreview: (canvas: HTMLCanvasElement | null) => void
   setViewFrame: (frame: ViewFrame | null) => void
 }
 

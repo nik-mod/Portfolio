@@ -4,12 +4,124 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#11110f" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preload" as="image" href="/images/laptop-intro-mobile.webp" media="(max-width: 560px)" fetchpriority="high" />
+    <link rel="preload" as="image" href="/images/laptop-intro-tablet.webp" media="(min-width: 561px) and (max-width: 820px)" fetchpriority="high" />
+    <link rel="preload" as="image" href="/images/laptop-intro-desktop.webp" media="(min-width: 821px)" fetchpriority="high" />
     <meta name="description" content="Nika Modebadze — Creative Developer / UX/UI &amp; Interactive Experiences." />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Nika Modebadze — Creative Developer" />
+    <meta property="og:description" content="Creative Developer / UX/UI &amp; Interactive Experiences. Design, code and interaction by Nika Modebadze." />
+    <meta name="twitter:card" content="summary" />
     <title>Nika Modebadze — Creative Developer</title>
+    <!-- Critical identity sheet: paints before React, the scene chunk or WebGL. -->
+    <style>
+      html{background:#10100f;color:#eeeade}body{margin:0}#nm-boot{--nm-gutter:clamp(1.25rem,3.35vw,3.75rem);--nm-header:6rem;position:fixed;z-index:25;inset:var(--nm-header) 0 0;display:grid;grid-template-columns:repeat(12,minmax(0,1fr));grid-template-rows:2.25rem 1fr 7.5rem;column-gap:clamp(.75rem,1.35vw,1.35rem);padding:clamp(1.5rem,3.2vw,3.2rem) var(--nm-gutter) 1.5rem;background:#10100f;font-synthesis:none;pointer-events:none;isolation:isolate;transition:opacity 850ms cubic-bezier(.37,0,.63,1);font-family:"Cascadia Mono","SFMono-Regular",Consolas,monospace}
+      #nm-boot[hidden]{display:none}.nm-boot-brand{position:absolute;top:calc(-1 * var(--nm-header));left:var(--nm-gutter);height:var(--nm-header);display:flex;align-items:center;gap:.8rem;font-size:.67rem;font-weight:700;letter-spacing:.08em}.nm-boot-brand b{display:grid;place-items:center;width:2.25rem;height:2.25rem;box-sizing:border-box;border:1px solid #eeeade2b;color:#d25748;font-size:.72rem}.nm-boot-index{grid-column:1/13;display:flex;justify-content:space-between;color:#aaa79f;font-size:.59rem;line-height:1;letter-spacing:.13em;text-transform:uppercase}.nm-boot-index em{color:#d25748;font-style:normal}.nm-boot-identity{position:relative;z-index:3;grid-column:1/13;grid-row:2;align-self:center;width:max-content;margin:-.03em 0 0;font:900 clamp(5.3rem,12.8vw,12.2rem)/.67 "Bahnschrift Condensed","Arial Narrow","Aptos Display","Franklin Gothic Condensed",sans-serif;letter-spacing:-.072em;text-transform:uppercase}.nm-boot-identity span{display:block;width:max-content}.nm-boot-identity span:last-child{margin-left:4%;font-size:.85em;color:transparent;-webkit-text-stroke:clamp(1px,.1vw,2px) #eeeadeeb}.nm-boot-frame{position:relative;grid-column:4/13;grid-row:2/4;margin:clamp(.8rem,2.7vh,2rem) 0 1rem;border:1px solid #eeeade2b;overflow:hidden;background:#25252233}.nm-boot-frame:before,.nm-boot-frame:after{content:"";position:absolute;pointer-events:none}.nm-boot-frame:before{inset:50% 0 auto;height:1px;background:#eeeade1a;transform-origin:left;animation:nm-register-x 900ms cubic-bezier(.16,1,.3,1) both}.nm-boot-frame:after{inset:0 auto 0 50%;width:1px;background:#eeeade1a;transform-origin:top;animation:nm-register-y 1100ms cubic-bezier(.16,1,.3,1) both}.nm-boot-corner{position:absolute;width:1.9rem;height:1.9rem;border:solid #eeeade99;animation:nm-register-corner 900ms cubic-bezier(.16,1,.3,1) both}.nm-boot-corner:first-child{top:13%;left:8%;border-width:1px 0 0 1px}.nm-boot-corner:nth-child(2){right:6%;bottom:10%;border-width:0 1px 1px 0;animation-delay:100ms}.nm-boot-object{position:absolute;top:10%;left:11%;color:#aaa79f;font-size:.65rem;line-height:1.6;letter-spacing:.1em}.nm-boot-object b{display:block;color:#eeeade;font-size:1.5rem;letter-spacing:-.05em;font-weight:500}.nm-boot-scan{position:absolute;z-index:4;top:0;left:0;width:100%;height:2px;background:#86170f;will-change:transform;animation:nm-scan 2600ms cubic-bezier(.45,0,.55,1) infinite alternate}.nm-boot-scan:after{content:"";position:absolute;right:0;top:-3px;width:8px;height:8px;background:#d25748}.nm-boot-footer{z-index:5;grid-column:1/13;grid-row:3;align-self:end;display:flex;justify-content:space-between;align-items:end;gap:1rem;font-size:.61rem;line-height:1.6;letter-spacing:.1em;text-transform:uppercase;color:#aaa79f}.nm-boot-footer p{margin:0}.nm-boot-footer strong{display:block;color:#eeeade;font-weight:500}.nm-boot-skip{pointer-events:auto;color:#eeeade;text-decoration:none;display:flex;align-items:center;justify-content:space-between;gap:3rem;min-height:44px;padding:.2rem 0;border-bottom:1px solid #86170f;transition:color 160ms}.nm-boot-skip:hover{color:#d25748}.nm-boot-skip:focus-visible{outline:2px solid #eeeade;outline-offset:5px}.nm-boot-access{position:absolute;left:var(--nm-gutter);bottom:-3rem;color:#aaa79f;font-size:.65rem}.nm-document-fallback{box-sizing:border-box;min-height:100svh;padding:10rem 6vw 4rem;background:#10100f;color:#eeeade;font:1rem/1.6 Consolas,monospace}.nm-document-fallback h1{font:900 clamp(3rem,9vw,9rem)/.9 "Bahnschrift Condensed","Arial Narrow",sans-serif;letter-spacing:-.06em}.nm-document-fallback a{color:#eeeade}
+      html[data-nm-mounted] .nm-boot-brand{visibility:hidden}html[data-nm-boot="handoff"] #nm-boot,html[data-nm-boot="dismissed"] #nm-boot{opacity:0}html[data-nm-boot="handoff"] .nm-boot-frame{transform:translate3d(0,0,0);transition:transform 850ms cubic-bezier(.16,1,.3,1)}html[data-nm-boot-mode="quiet"] #nm-boot{transition-duration:180ms}html[data-nm-boot-mode="quiet"] .nm-boot-scan,html[data-nm-boot-mode="quiet"] .nm-boot-frame:before,html[data-nm-boot-mode="quiet"] .nm-boot-frame:after,html[data-nm-boot-mode="quiet"] .nm-boot-corner{animation:none}
+      .nm-boot-identity{width:auto}.nm-boot-identity span:last-child{letter-spacing:-.055em}.nm-boot-skip{font-size:.7rem}
+      @media(min-width:821px) and (max-width:1060px){#nm-boot{grid-template-rows:2rem 1fr 8rem}.nm-boot-identity{font-size:clamp(5rem,12.4vw,9.2rem)}}
+      @media(min-width:561px) and (max-width:820px){#nm-boot{--nm-header:7.4rem}}
+      /* Stay in the first document screen, not over the user's later reading. */
+      #nm-boot{position:absolute;bottom:auto;height:calc(100svh - var(--nm-header));box-sizing:border-box}html[data-nm-boot="dismissed"] #nm-boot{transition-duration:160ms}
+      @keyframes nm-scan{from{transform:translate3d(0,14vh,0)}to{transform:translate3d(0,55vh,0)}}@keyframes nm-register-x{from{transform:scaleX(0)}to{transform:scaleX(1)}}@keyframes nm-register-y{from{transform:scaleY(0)}to{transform:scaleY(1)}}@keyframes nm-register-corner{from{opacity:0;transform:translate3d(0,10px,0)}to{opacity:1;transform:translate3d(0,0,0)}}
+      @media(max-width:820px){#nm-boot{--nm-header:8.25rem;grid-template-rows:auto auto minmax(0,1fr) auto;padding-block:1rem}.nm-boot-index{grid-row:1}.nm-boot-identity{align-self:end;margin-top:1.5rem;font-size:clamp(5rem,16vw,7.8rem)}.nm-boot-identity span:last-child{margin-left:8%}.nm-boot-frame{grid-column:2/13;grid-row:3;margin:.25rem 0 0;min-height:0}.nm-boot-footer{grid-row:4;margin-top:1rem;padding-top:.65rem;font-size:.58rem}.nm-boot-footer p{max-width:45%}.nm-boot-skip{gap:1rem}.nm-boot-object{font-size:.58rem}.nm-boot-object b{font-size:1.15rem}@keyframes nm-scan{from{transform:translate3d(0,5vh,0)}to{transform:translate3d(0,35vh,0)}}}
+      @media(max-width:560px){#nm-boot{--nm-gutter:1rem;column-gap:0}.nm-boot-index{line-height:1.4}.nm-boot-index span:last-child{max-width:7rem;text-align:right}.nm-boot-identity{font-size:clamp(5rem,26vw,6.5rem);line-height:.7;letter-spacing:-.075em}.nm-boot-identity span:last-child{font-size:.72em;margin-left:0}.nm-boot-frame{grid-column:1/13;margin-left:1.5rem}.nm-boot-brand{right:1rem;justify-content:space-between}.nm-boot-footer{min-height:4.4rem}.nm-boot-skip{font-size:.58rem}}
+      @media(prefers-reduced-motion:reduce){#nm-boot{transition:none}.nm-boot-scan,.nm-boot-frame:before,.nm-boot-frame:after,.nm-boot-corner{animation:none!important}.nm-boot-scan{transform:translateY(14vh)}}
+      #nm-boot{border-bottom:1px solid transparent}
+      html[data-nm-boot="handoff"] .nm-boot-index,html[data-nm-boot="handoff"] .nm-boot-footer{opacity:0;transition:opacity 160ms ease}
+      html[data-nm-boot="handoff"] .nm-boot-frame{opacity:0;transition:opacity 300ms ease}
+      @media(min-width:561px) and (max-width:820px){#nm-boot{--nm-header:7.4rem;top:7.375rem}.nm-boot-brand{top:-6.625rem;height:2.25rem}}
+      @media(max-width:560px){#nm-boot{top:7.775rem}.nm-boot-brand{top:-7.025rem;height:2.25rem}.nm-boot-skip{font-size:.64rem}}
+      html[data-nm-restoring="true"] #nm-boot{position:fixed}
+    </style>
   </head>
   <body>
-    <div id="root"></div>
-    <noscript><section style="padding:8vw;background:#10100f;color:#eeeade;min-height:100vh;font-family:monospace"><h1 style="font-size:clamp(3rem,10vw,10rem);line-height:1">NIKA MODEBADZE</h1><p>LET’S BUILD SOMETHING WORTH REMEMBERING.</p><p>Creative Developer / UX/UI</p><p><a style="color:inherit" href="mailto:nika.modebadze.1@btu.edu.ge">nika.modebadze.1@btu.edu.ge</a></p><p><a style="color:inherit" href="/documents/Nika_Modebadze_CV.pdf" download="Nika_Modebadze_CV.pdf">Download CV</a></p><p>The interactive portfolio requires JavaScript. You can still get in touch or download my CV.</p></section></noscript>
+    <div id="nm-boot" hidden>
+      <div class="nm-boot-brand" aria-hidden="true"><b>NM</b><span>NIKA MODEBADZE</span></div>
+      <div class="nm-boot-index" aria-hidden="true"><span><em>NM/01</em> — Identity registration</span><span>Independent practice · 2026</span></div>
+      <div class="nm-boot-identity" aria-hidden="true"><span>Nika</span><span>Modebadze</span></div>
+      <div class="nm-boot-frame" aria-hidden="true"><i class="nm-boot-corner"></i><i class="nm-boot-corner"></i><span class="nm-boot-object"><b>NM / 01</b>DESIGN × ENGINEERING</span><i class="nm-boot-scan"></i></div>
+      <div class="nm-boot-footer"><p aria-hidden="true"><strong>Forming the experience</strong><span id="nm-boot-status">Preparing the interactive scene</span></p><a class="nm-boot-skip" href="#works">Skip intro / Explore <span aria-hidden="true">↗</span></a></div>
+    </div>
+    <div id="root"><main class="nm-document-fallback"><h1>Nika Modebadze</h1><p>Creative Developer / UX/UI &amp; Interactive Experiences</p><p>The portfolio is preparing. Contact and CV are available now.</p><p><a href="mailto:nika.modebadze.1@btu.edu.ge">nika.modebadze.1@btu.edu.ge</a></p><p><a href="/documents/Nika_Modebadze_CV.pdf" download="Nika_Modebadze_CV.pdf">Download CV ↗</a></p></main></div>
+    <noscript><style>#nm-boot{display:none}</style><p style="padding:1rem 6vw;color:#eeeade;font-family:monospace">The interactive portfolio requires JavaScript. You can still get in touch or download my CV.</p></noscript>
+    <script>
+      (() => {
+        const root = document.documentElement, sheet = document.getElementById('nm-boot');
+        const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+        let returning = false, done = false, cleanupTimer;
+        try { returning = sessionStorage.getItem('nm/01') === 'seen'; } catch (_) {}
+        const quiet = returning || reduced.matches;
+        const navigation = performance.getEntriesByType('navigation')[0];
+        const restoring = (!location.hash || location.hash === '#intro') && (navigation?.type === 'reload' || navigation?.type === 'back_forward');
+        if (restoring) root.dataset.nmRestoring = 'true';
+        root.dataset.nmBootMode = quiet ? 'quiet' : 'full';
+        root.dataset.nmBoot = 'opening';
+        root.dataset.nmGate = 'preparing';
+        // Distinguish intentional early scrolling from browser scroll restoration.
+        const clearInput = () => {
+          window.removeEventListener('wheel', input); window.removeEventListener('touchstart', input); window.removeEventListener('keydown', input);
+          document.removeEventListener('nm:scene-ready', clearInput);
+        };
+        const input = event => {
+          if (event.type === 'keydown' && !['ArrowDown','ArrowUp','PageDown','PageUp','Home','End',' '].includes(event.key)) return;
+          root.dataset.nmBootInput = 'true'; clearInput();
+        };
+        window.addEventListener('wheel', input, { passive: true }); window.addEventListener('touchstart', input, { passive: true }); window.addEventListener('keydown', input);
+        document.addEventListener('nm:scene-ready', clearInput, { once: true });
+        const remember = () => { try { sessionStorage.setItem('nm/01', 'seen'); } catch (_) {} };
+        const hide = () => { sheet.hidden = true; window.clearTimeout(cleanupTimer); document.removeEventListener('focusin', focus); };
+        const finish = (reason) => {
+          if (done) return;
+          done = true; remember();
+          if (reason === 'skip') root.dataset.nmBootSkipped = 'true';
+          if (reason === 'ready' || reason === 'skip' || reason === 'preference' || reason === 'unavailable' || reduced.matches || (location.hash && location.hash !== '#intro')) clearInput();
+          root.dataset.nmBoot = reason === 'ready' ? 'handoff' : 'dismissed';
+          if (sheet.contains(document.activeElement)) document.querySelector('.hero-copy a')?.focus({ preventScroll: true });
+          sheet.inert = true;
+          sheet.style.pointerEvents = 'none';
+          document.removeEventListener('nm:scene-ready', ready);
+          window.removeEventListener('scroll', scroll);
+          reduced.removeEventListener('change', preference);
+          // This is a cleanup deadline, not a minimum loading duration.
+          cleanupTimer = window.setTimeout(hide, reduced.matches ? 0 : quiet ? 200 : 900);
+        };
+        const ready = () => finish('ready');
+        const scroll = () => {
+          const hero = document.getElementById('intro');
+          const header = document.querySelector('header');
+          // Natural scrolling may leave the loading Hero for real HTML, but a
+          // small scroll is not permission to reveal or advance unfinished 3D.
+          if (restoring && root.dataset.nmBootInput !== 'true' && root.dataset.nmGate === 'preparing') return;
+          if (hero && hero.getBoundingClientRect().bottom <= (header?.getBoundingClientRect().bottom || 0)) finish('scroll');
+        };
+        const preference = () => { if (reduced.matches) finish('preference'); };
+        const focus = event => {
+          const target = event.target;
+          if (!(target instanceof HTMLElement) || target === document.body || target === root || sheet.contains(target)) return;
+          // Underlying content stays in the tab order. Expose its exact focus
+          // target immediately rather than trapping or redirecting navigation.
+          finish('focus'); hide();
+        };
+        sheet.addEventListener('transitionend', event => { if (event.target === sheet && done) hide(); });
+        sheet.querySelector('a').addEventListener('click', () => finish('skip'));
+        document.addEventListener('nm:scene-ready', ready);
+        document.addEventListener('focusin', focus);
+        document.addEventListener('nm:app-mounted', () => {
+          root.dataset.nmMounted = 'true';
+          if (reduced.matches || (location.hash && location.hash !== '#intro') || (window.scrollY > 8 && !restoring)) finish('navigation');
+        }, { once: true });
+        window.addEventListener('scroll', scroll, { passive: true });
+        reduced.addEventListener('change', preference);
+        if (location.hash && location.hash !== '#intro') { finish('navigation'); hide(); }
+        // No application JS: never leave an inaccessible modal or failed scene.
+        window.setTimeout(() => { clearInput(); if (!root.dataset.nmMounted) finish('unavailable'); }, 20000);
+        // Progressive enhancement: a blocked/failed bootstrap leaves the useful
+        // static contact/CV document visible, never an opaque identity overlay.
+        if (!done) sheet.hidden = false;
+      })();
+    </script>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

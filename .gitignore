@@ -8,6 +8,10 @@ dist/
 *.local
 .vite/
 *.tsbuildinfo
+.env
+.env.*
+!.env.example
+.vercel/
 
 # Editor and operating-system files
 .DS_Store
