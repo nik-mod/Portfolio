@@ -29,11 +29,19 @@ export function usePageMotion(scope: RefObject<HTMLElement | null>) {
       const select = gsap.utils.selector(scope.current)
       let lenis: Lenis | undefined
       const tick = (seconds: number) => lenis?.raf(seconds * 1000)
+      // The NM/01 boot lock owns the document before the reveal. A stopped
+      // Lenis preventDefaults input without queuing a target scroll, so the
+      // unlock cannot fire a stale dive.
+      const lenisLock = () => lenis?.stop()
+      const lenisUnlock = () => lenis?.start()
 
       if (full) {
         lenis = new Lenis({ autoRaf: false, lerp: 0.12, syncTouch: false })
         lenis.on('scroll', ScrollTrigger.update)
         gsap.ticker.add(tick)
+        document.addEventListener('nm:scroll-lock', lenisLock)
+        document.addEventListener('nm:scroll-unlock', lenisUnlock)
+        if (document.documentElement.dataset.nmScrollLock === 'true') lenis.stop()
       }
 
       // No CSS-hidden initial state: content remains available if JS fails.
@@ -84,6 +92,8 @@ export function usePageMotion(scope: RefObject<HTMLElement | null>) {
       return () => {
         disposed = true
         gsap.ticker.remove(tick)
+        document.removeEventListener('nm:scroll-lock', lenisLock)
+        document.removeEventListener('nm:scroll-unlock', lenisUnlock)
         lenis?.off('scroll', ScrollTrigger.update)
         lenis?.destroy()
       }

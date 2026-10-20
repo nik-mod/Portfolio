@@ -1,0 +1,117 @@
+[
+  {
+    "n": "PERF scene ready to interactive (cold, incl. reveal)",
+    "p": true,
+    "d": "3124ms"
+  },
+  {
+    "n": "PERF FCP",
+    "p": true,
+    "d": "240ms"
+  },
+  {
+    "n": "PERF LCP",
+    "p": true,
+    "d": "476ms"
+  },
+  {
+    "n": "PERF CLS = 0",
+    "p": true,
+    "d": "0"
+  },
+  {
+    "n": "PERF long tasks >50ms counted",
+    "p": true,
+    "d": "5 tasks, total 1277ms"
+  },
+  {
+    "n": "NAV header link \"Intro\"",
+    "p": true,
+    "d": "true"
+  },
+  {
+    "n": "NAV header link \"Works\"",
+    "p": true,
+    "d": "true"
+  },
+  {
+    "n": "NAV header link \"About\"",
+    "p": true,
+    "d": "true"
+  },
+  {
+    "n": "NAV header link \"Contact\"",
+    "p": true,
+    "d": "true"
+  },
+  {
+    "n": "FUNC skills accordion toggles",
+    "p": true,
+    "d": "n/a -> clicked (4 items)"
+  },
+  {
+    "n": "FUNC contact mailto present",
+    "p": true,
+    "d": "mailto:nika.modebadze.1@btu.edu.ge"
+  },
+  {
+    "n": "FUNC CV PDF downloadable",
+    "p": true,
+    "d": "200 application/pdf"
+  },
+  {
+    "n": "FUNC footer signature animation element",
+    "p": true,
+    "d": ""
+  },
+  {
+    "n": "PERF idle WebGL: no continuous redraws at rest",
+    "p": true,
+    "d": "{\"supported\":true,\"same\":true,\"shot1\":\"25424:0.9570401118509143\"}"
+  },
+  {
+    "n": "A11Y landmarks (header/main/footer/h1)",
+    "p": true,
+    "d": ""
+  },
+  {
+    "n": "A11Y skip link present",
+    "p": true,
+    "d": ""
+  },
+  {
+    "n": "A11Y html lang",
+    "p": true,
+    "d": "en"
+  },
+  {
+    "n": "A11Y images have alt attributes",
+    "p": true,
+    "d": ""
+  },
+  {
+    "n": "A11Y visible links/buttons have accessible names",
+    "p": true,
+    "d": "0 unnamed"
+  },
+  {
+    "n": "A11Y first Tab reaches skip link",
+    "p": false,
+    "d": "cv-download"
+  },
+  {
+    "n": "A11Y keyboard can leave the page (no trap)",
+    "p": true,
+    "d": "9 tab hops"
+  },
+  {
+    "n": "A11Y skip link jumps to works",
+    "p": false,
+    "d": "focus=#intro"
+  },
+  {
+    "n": "QA no uncaught page errors",
+    "p": true,
+    "d": ""
+  }
+]

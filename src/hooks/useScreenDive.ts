@@ -176,7 +176,7 @@ export function useScreenDive(
         render()
       }
 
-      const startTimeline = () => {
+      const startTimeline = (preserveEnd = false) => {
         if (timeline || disposed) return
         timeline = gsap.timeline({
           onUpdate: render,
@@ -191,7 +191,12 @@ export function useScreenDive(
         }).to(playhead, { progress: 1, duration: 1, ease: 'none' })
         measure()
         ScrollTrigger.sort()
+        // Native restoration clamps an end-of-document position against the
+        // unpinned (shorter) page before this pin adds its spacing back.
+        const clampedEnd = preserveEnd &&
+          Math.abs(window.scrollY - (document.documentElement.scrollHeight - window.innerHeight)) < 2
         ScrollTrigger.refresh()
+        if (clampedEnd) window.scrollTo(0, document.documentElement.scrollHeight - window.innerHeight)
         if (!interactive) heldProgress = timeline.scrollTrigger!.progress
         hero.dataset.diveState = interactive ? 'active' : 'restoring'
         lastProgress = -1
@@ -285,7 +290,7 @@ export function useScreenDive(
       render()
       // Only native restoration reserves pin space before presentation. Its
       // initial pose is held, never scrubbed, until the verified reveal finishes.
-      if (restoring) startTimeline()
+      if (restoring) startTimeline(true)
       if (viewport.dataset.interactionReady === 'true') activate()
       if (location.hash && (location.hash !== '#intro' || (!restoring && window.scrollY <= 1))) navigate(location.hash, false)
       else if (readingTop !== null && !timeline) window.scrollBy(0, portfolio.getBoundingClientRect().top - readingTop)

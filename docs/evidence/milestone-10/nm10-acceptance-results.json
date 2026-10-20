@@ -1,0 +1,237 @@
+[
+  {
+    "name": "A1 boot sheet visible over Hero",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "A1 scroll lock applied on first visit",
+    "pass": true,
+    "detail": "gate=preparing"
+  },
+  {
+    "name": "A1 gate preparing, no cinematic timeline yet",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "A2 mouse wheel locked during boot",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "A3 keyboard scroll locked during boot",
+    "pass": true,
+    "detail": "scrollY=0"
+  },
+  {
+    "name": "A5 boot still covering, gate unchanged",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "C-handoff lock held during the 950ms reveal",
+    "pass": true,
+    "detail": "gate=handoff y=0"
+  },
+  {
+    "name": "D1 lock released exactly at interactive gate",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "D1 no queued scroll fired at unlock",
+    "pass": true,
+    "detail": "scrollY=0"
+  },
+  {
+    "name": "D1 cinematic timeline active from top",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "D1 boot sheet dismissed after handoff",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "D1 scene state monotonic (no laptop flapping)",
+    "pass": true,
+    "detail": "ready"
+  },
+  {
+    "name": "D1 no layout shift from the lock/unlock toggle",
+    "pass": true,
+    "detail": "CLS entries sum=0"
+  },
+  {
+    "name": "D1 viewport width unchanged by unlock (gutter reserved)",
+    "pass": true,
+    "detail": "1440 vs 1440"
+  },
+  {
+    "name": "D2 wheel scrolls after unlock",
+    "pass": true,
+    "detail": "scrollY=8277"
+  },
+  {
+    "name": "D2 forward dive progresses",
+    "pass": true,
+    "detail": "p=1.0000"
+  },
+  {
+    "name": "9 full forward dive completes",
+    "pass": true,
+    "detail": "p=1"
+  },
+  {
+    "name": "9 HTML portfolio handed off & interactive",
+    "pass": true,
+    "detail": "op=1 pe=auto"
+  },
+  {
+    "name": "10 full reverse restores hero",
+    "pass": true,
+    "detail": "p=0.0000"
+  },
+  {
+    "name": "10 hero typography restored on reverse",
+    "pass": true,
+    "detail": "opacity=1"
+  },
+  {
+    "name": "13 reload: no lock on restored session",
+    "pass": true,
+    "detail": "boot=opening"
+  },
+  {
+    "name": "13 reload: reading position preserved exactly",
+    "pass": true,
+    "detail": "8277/-5287 -> 8277/-5287 p=1"
+  },
+  {
+    "name": "A/D uncaught page errors",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "B1 mobile lock applied",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "B3 touch swipe locked during boot",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "B6 mobile unlock then touch scrolls into dive",
+    "pass": true,
+    "detail": "scrollY=1870 p=1.0000"
+  },
+  {
+    "name": "B uncaught page errors",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "C1 skip available while locked",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "C11 skip releases lock immediately",
+    "pass": true,
+    "detail": "boot=dismissed"
+  },
+  {
+    "name": "C11 skip exposes HTML portfolio at #works",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "C11 works section in viewport after skip",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "C11 scrolling works right after skip",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "C11 no re-lock after background readiness",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "C uncaught page errors",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "D-fail lock applied before failure known",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "D12 WebGL failure releases lock",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "D12 static fallback presented",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "D12 scrolling free after failure (no trap)",
+    "pass": true,
+    "detail": "scrollY=3994"
+  },
+  {
+    "name": "E1 lock applied while scene request hangs",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "E12 hung scene: timeout fallback unlocks",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "E12 scrolling free after timeout",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "H1 weak device: lock applied initially",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "H1 weak device: static fallback, lock released",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "H1 weak device: scrolling free (no trap)",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "F reduced-motion: no lock, quiet mode",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "F reduced-motion: scrolling free immediately",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "G deep link: never locked",
+    "pass": true,
+    "detail": "boot=dismissed"
+  }
+]

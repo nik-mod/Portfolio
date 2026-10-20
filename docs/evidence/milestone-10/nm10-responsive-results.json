@@ -1,0 +1,397 @@
+[
+  {
+    "vp": "320x568",
+    "boot": {
+      "gate": "active",
+      "overflowX": 0,
+      "bodyScrollW": 320,
+      "vw": 320
+    },
+    "offenders": [
+      "div.viewport-grid L-38 R374"
+    ],
+    "clipped": [
+      "span.hero-title-outline \"Modebadze\" sw285>cw253"
+    ],
+    "hero": {
+      "fits": true,
+      "vw": 264,
+      "vh": 145,
+      "scene": "ready"
+    },
+    "sections": [
+      {
+        "s": ".works",
+        "top": 1190
+      },
+      {
+        "s": ".about",
+        "top": 3008
+      },
+      {
+        "s": ".contact",
+        "top": 5524
+      }
+    ],
+    "afterWalk": {
+      "overflowX": 0
+    },
+    "resized": {
+      "overflowX": 0,
+      "y": 6338
+    },
+    "errors": []
+  },
+  {
+    "vp": "375x812",
+    "boot": {
+      "gate": "active",
+      "overflowX": 0,
+      "bodyScrollW": 375,
+      "vw": 375
+    },
+    "offenders": [
+      "div.viewport-grid L-56 R443",
+      "div.viewport-plane L-6 R178"
+    ],
+    "clipped": [
+      "span.hero-title-outline \"Modebadze\" sw329>cw297"
+    ],
+    "hero": {
+      "fits": true,
+      "vw": 319,
+      "vh": 390,
+      "scene": "ready"
+    },
+    "sections": [
+      {
+        "s": ".works",
+        "top": 1775
+      },
+      {
+        "s": ".about",
+        "top": 3684
+      },
+      {
+        "s": ".contact",
+        "top": 6123
+      }
+    ],
+    "afterWalk": {
+      "overflowX": 0
+    },
+    "resized": {
+      "overflowX": 0,
+      "y": 6736
+    },
+    "errors": []
+  },
+  {
+    "vp": "390x844",
+    "boot": {
+      "gate": "active",
+      "overflowX": 0,
+      "bodyScrollW": 390,
+      "vw": 390
+    },
+    "offenders": [
+      "div.viewport-grid L-61 R461",
+      "div.viewport-plane L-8 R185"
+    ],
+    "clipped": [
+      "span.hero-title-outline \"Modebadze\" sw341>cw309"
+    ],
+    "hero": {
+      "fits": true,
+      "vw": 334,
+      "vh": 417,
+      "scene": "ready"
+    },
+    "sections": [
+      {
+        "s": ".works",
+        "top": 1852
+      },
+      {
+        "s": ".about",
+        "top": 3805
+      },
+      {
+        "s": ".contact",
+        "top": 6262
+      }
+    ],
+    "afterWalk": {
+      "overflowX": 0
+    },
+    "resized": {
+      "overflowX": 0,
+      "y": 6829
+    },
+    "errors": []
+  },
+  {
+    "vp": "430x932",
+    "boot": {
+      "gate": "active",
+      "overflowX": 0,
+      "bodyScrollW": 430,
+      "vw": 430
+    },
+    "offenders": [
+      "div.viewport-grid L-74 R511",
+      "div.viewport-plane L-16 R204"
+    ],
+    "clipped": [
+      "span.hero-title-outline \"Modebadze\" sw349>cw317"
+    ],
+    "hero": {
+      "fits": true,
+      "vw": 374,
+      "vh": 502,
+      "scene": "ready"
+    },
+    "sections": [
+      {
+        "s": ".works",
+        "top": 2063
+      },
+      {
+        "s": ".about",
+        "top": 4134
+      },
+      {
+        "s": ".contact",
+        "top": 6593
+      }
+    ],
+    "afterWalk": {
+      "overflowX": 0
+    },
+    "resized": {
+      "overflowX": 0,
+      "y": 7425
+    },
+    "errors": []
+  },
+  {
+    "vp": "768x1024",
+    "boot": {
+      "gate": "active",
+      "overflowX": -15,
+      "bodyScrollW": 753,
+      "vw": 768
+    },
+    "offenders": [
+      "div.viewport-grid L-121 R884",
+      "div.viewport-plane L499 R821"
+    ],
+    "clipped": [
+      "span.hero-title-outline \"Modebadze\" sw534>cw442"
+    ],
+    "hero": {
+      "fits": true,
+      "vw": 642,
+      "vh": 590,
+      "scene": "ready"
+    },
+    "sections": [
+      {
+        "s": ".works",
+        "top": 2655
+      },
+      {
+        "s": ".about",
+        "top": 5092
+      },
+      {
+        "s": ".contact",
+        "top": 7009
+      }
+    ],
+    "afterWalk": {
+      "overflowX": -15
+    },
+    "resized": {
+      "overflowX": -15,
+      "y": 7873
+    },
+    "errors": []
+  },
+  {
+    "vp": "1024x768",
+    "boot": {
+      "gate": "active",
+      "overflowX": -15,
+      "bodyScrollW": 1009,
+      "vw": 1024
+    },
+    "offenders": [
+      "div.viewport-grid L45 R1144",
+      "div.viewport-plane L730 R1072"
+    ],
+    "clipped": [
+      "span.hero-title-outline \"Modebadze\" sw580>cw457"
+    ],
+    "hero": {
+      "fits": true,
+      "vw": 702,
+      "vh": 546,
+      "scene": "ready"
+    },
+    "sections": [
+      {
+        "s": ".works",
+        "top": 2515
+      },
+      {
+        "s": ".about",
+        "top": 4821
+      },
+      {
+        "s": ".contact",
+        "top": 6817
+      }
+    ],
+    "afterWalk": {
+      "overflowX": -15
+    },
+    "resized": {
+      "overflowX": -15,
+      "y": 7601
+    },
+    "errors": []
+  },
+  {
+    "vp": "1366x768",
+    "boot": {
+      "gate": "active",
+      "overflowX": -15,
+      "bodyScrollW": 1351,
+      "vw": 1366
+    },
+    "offenders": [
+      "div.viewport-grid L44 R1520",
+      "div.viewport-plane L989 R1424"
+    ],
+    "clipped": [
+      "span.hero-title-outline \"Modebadze\" sw793>cw629"
+    ],
+    "hero": {
+      "fits": true,
+      "vw": 940,
+      "vh": 531,
+      "scene": "ready"
+    },
+    "sections": [
+      {
+        "s": ".works",
+        "top": 2515
+      },
+      {
+        "s": ".about",
+        "top": 5241
+      },
+      {
+        "s": ".contact",
+        "top": 7451
+      }
+    ],
+    "afterWalk": {
+      "overflowX": -15
+    },
+    "resized": {
+      "overflowX": -15,
+      "y": 8264
+    },
+    "errors": []
+  },
+  {
+    "vp": "1440x900",
+    "boot": {
+      "gate": "active",
+      "overflowX": -15,
+      "bodyScrollW": 1425,
+      "vw": 1440
+    },
+    "offenders": [
+      "div.viewport-grid L43 R1602",
+      "div.viewport-plane L1038 R1508"
+    ],
+    "clipped": [
+      "span.hero-title-outline \"Modebadze\" sw836>cw663"
+    ],
+    "hero": {
+      "fits": true,
+      "vw": 992,
+      "vh": 657,
+      "scene": "ready"
+    },
+    "sections": [
+      {
+        "s": ".works",
+        "top": 2990
+      },
+      {
+        "s": ".about",
+        "top": 5834
+      },
+      {
+        "s": ".contact",
+        "top": 7763
+      }
+    ],
+    "afterWalk": {
+      "overflowX": -15
+    },
+    "resized": {
+      "overflowX": -15,
+      "y": 8565
+    },
+    "errors": []
+  },
+  {
+    "vp": "1920x1080",
+    "boot": {
+      "gate": "active",
+      "overflowX": -15,
+      "bodyScrollW": 1905,
+      "vw": 1920
+    },
+    "offenders": [
+      "div.viewport-grid L19 R2123",
+      "div.viewport-plane L1392 R2018"
+    ],
+    "clipped": [
+      "span.hero-title-outline \"Modebadze\" sw933>cw702"
+    ],
+    "hero": {
+      "fits": true,
+      "vw": 1333,
+      "vh": 827,
+      "scene": "ready"
+    },
+    "sections": [
+      {
+        "s": ".works",
+        "top": 3638
+      },
+      {
+        "s": ".about",
+        "top": 7179
+      },
+      {
+        "s": ".contact",
+        "top": 9250
+      }
+    ],
+    "afterWalk": {
+      "overflowX": -15
+    },
+    "resized": {
+      "overflowX": -15,
+      "y": 10044
+    },
+    "errors": []
+  }
+]

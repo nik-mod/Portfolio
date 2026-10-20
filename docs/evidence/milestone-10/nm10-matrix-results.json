@@ -1,0 +1,302 @@
+[
+  {
+    "n": "PROD fresh: gate present during prep",
+    "p": true,
+    "d": "{\"lock\":\"true\",\"gate\":\"preparing\",\"boot\":\"opening\",\"mode\":\"full\",\"y\":0,\"diveState\":null,\"diveProgress\":null,\"pinInstalled\":false}"
+  },
+  {
+    "n": "PROD fresh: wheel+keyboard held during prep",
+    "p": true,
+    "d": "y=0 p=null"
+  },
+  {
+    "n": "PROD fresh: lock held through the reveal",
+    "p": true,
+    "d": ""
+  },
+  {
+    "n": "PROD fresh: unlocked only after interactive",
+    "p": true,
+    "d": ""
+  },
+  {
+    "n": "PROD fresh: forward cinematic after unlock",
+    "p": true,
+    "d": "p=1.0000"
+  },
+  {
+    "n": "PROD fresh: reverse cinematic restores hero",
+    "p": true,
+    "d": ""
+  },
+  {
+    "n": "PROD fresh: no page errors",
+    "p": true,
+    "d": ""
+  },
+  {
+    "n": "PROD returning-newtab: gate present during prep",
+    "p": true,
+    "d": "{\"lock\":\"true\",\"gate\":\"preparing\",\"boot\":\"opening\",\"mode\":\"quiet\",\"y\":0,\"diveState\":null,\"diveProgress\":null,\"pinInstalled\":false}"
+  },
+  {
+    "n": "PROD returning-newtab: wheel+keyboard held during prep",
+    "p": true,
+    "d": "y=0 p=null"
+  },
+  {
+    "n": "PROD returning-newtab: lock held through the reveal",
+    "p": true,
+    "d": ""
+  },
+  {
+    "n": "PROD returning-newtab: unlocked only after interactive",
+    "p": true,
+    "d": ""
+  },
+  {
+    "n": "PROD returning-newtab: forward cinematic after unlock",
+    "p": true,
+    "d": "p=1.0000"
+  },
+  {
+    "n": "PROD returning-newtab: reverse cinematic restores hero",
+    "p": true,
+    "d": ""
+  },
+  {
+    "n": "PROD returning-newtab: no page errors",
+    "p": true,
+    "d": ""
+  },
+  {
+    "n": "PROD reduced-motion-returning: immediate fallback, unlocked",
+    "p": true,
+    "d": "{\"lock\":null,\"gate\":\"fallback\",\"boot\":\"dismissed\",\"mode\":\"quiet\",\"y\":0,\"diveState\":null,\"diveProgress\":null,\"pinInstalled\":false}"
+  },
+  {
+    "n": "PROD reduced-motion-returning: scrolling free at once",
+    "p": true,
+    "d": ""
+  },
+  {
+    "n": "PROD refresh #1: scroll held",
+    "p": true,
+    "d": "y=0 lock=true boot=opening"
+  },
+  {
+    "n": "PROD refresh #2: scroll held",
+    "p": true,
+    "d": "y=0 lock=true boot=opening"
+  },
+  {
+    "n": "PROD refresh #3: scroll held",
+    "p": true,
+    "d": "y=0 lock=true boot=opening"
+  },
+  {
+    "n": "PROD refresh x3: unlocked at end",
+    "p": true,
+    "d": ""
+  },
+  {
+    "n": "PROD refresh x3: dive works after",
+    "p": true,
+    "d": "p=1.0000"
+  },
+  {
+    "n": "PROD: no page errors",
+    "p": true,
+    "d": ""
+  },
+  {
+    "n": "PROD same-tab-refresh-top: scroll held",
+    "p": true,
+    "d": "{\"lock\":\"true\",\"gate\":\"preparing\",\"boot\":\"opening\",\"mode\":\"quiet\",\"y\":0,\"diveState\":null,\"diveProgress\":null,\"pinInstalled\":false}"
+  },
+  {
+    "n": "PROD mid-page reload: not locked",
+    "p": true,
+    "d": "{\"lock\":null,\"gate\":\"preparing\",\"boot\":\"opening\",\"mode\":\"quiet\",\"y\":3000,\"diveState\":null,\"diveProgress\":null,\"pinInstalled\":false}"
+  },
+  {
+    "n": "PROD mid-page reload: reading position preserved",
+    "p": true,
+    "d": "y=3000"
+  },
+  {
+    "n": "PROD mid-page reload: works offset stable",
+    "p": true,
+    "d": "-10 -> -10"
+  },
+  {
+    "n": "PROD mid-page reload: scrolling free immediately",
+    "p": true,
+    "d": ""
+  },
+  {
+    "n": "DEV fresh: gate present during prep",
+    "p": true,
+    "d": "{\"lock\":\"true\",\"gate\":\"preparing\",\"boot\":\"opening\",\"mode\":\"full\",\"y\":0,\"diveState\":null,\"diveProgress\":null,\"pinInstalled\":false}"
+  },
+  {
+    "n": "DEV fresh: wheel+keyboard held during prep",
+    "p": true,
+    "d": "y=0 p=null"
+  },
+  {
+    "n": "DEV fresh: lock held through the reveal",
+    "p": true,
+    "d": ""
+  },
+  {
+    "n": "DEV fresh: unlocked only after interactive",
+    "p": true,
+    "d": ""
+  },
+  {
+    "n": "DEV fresh: forward cinematic after unlock",
+    "p": true,
+    "d": "p=1.0000"
+  },
+  {
+    "n": "DEV fresh: reverse cinematic restores hero",
+    "p": true,
+    "d": ""
+  },
+  {
+    "n": "DEV fresh: no page errors",
+    "p": true,
+    "d": ""
+  },
+  {
+    "n": "DEV returning-newtab: gate present during prep",
+    "p": true,
+    "d": "{\"lock\":\"true\",\"gate\":\"preparing\",\"boot\":\"opening\",\"mode\":\"quiet\",\"y\":0,\"diveState\":null,\"diveProgress\":null,\"pinInstalled\":false}"
+  },
+  {
+    "n": "DEV returning-newtab: wheel+keyboard held during prep",
+    "p": true,
+    "d": "y=0 p=null"
+  },
+  {
+    "n": "DEV returning-newtab: lock held through the reveal",
+    "p": true,
+    "d": ""
+  },
+  {
+    "n": "DEV returning-newtab: unlocked only after interactive",
+    "p": true,
+    "d": ""
+  },
+  {
+    "n": "DEV returning-newtab: forward cinematic after unlock",
+    "p": true,
+    "d": "p=1.0000"
+  },
+  {
+    "n": "DEV returning-newtab: reverse cinematic restores hero",
+    "p": true,
+    "d": ""
+  },
+  {
+    "n": "DEV returning-newtab: no page errors",
+    "p": true,
+    "d": ""
+  },
+  {
+    "n": "DEV same-tab-refresh-top: scroll held",
+    "p": true,
+    "d": "{\"lock\":\"true\",\"gate\":\"preparing\",\"boot\":\"opening\",\"mode\":\"quiet\",\"y\":0,\"diveState\":null,\"diveProgress\":null,\"pinInstalled\":false}"
+  },
+  {
+    "n": "firefox mid-page reload: position restored",
+    "p": true,
+    "d": "y=2500"
+  },
+  {
+    "n": "firefox mid-page reload: not locked",
+    "p": true,
+    "d": ""
+  },
+  {
+    "n": "webkit mid-page reload: position restored",
+    "p": false,
+    "d": "y=0"
+  },
+  {
+    "n": "webkit mid-page reload: not locked",
+    "p": true,
+    "d": ""
+  },
+  {
+    "n": "FF returning-newtab: gate present during prep",
+    "p": true,
+    "d": "{\"lock\":\"true\",\"gate\":\"preparing\",\"boot\":\"opening\",\"mode\":\"quiet\",\"y\":0,\"diveState\":null,\"diveProgress\":null,\"pinInstalled\":false}"
+  },
+  {
+    "n": "FF returning-newtab: wheel+keyboard held during prep",
+    "p": true,
+    "d": "y=0 p=null"
+  },
+  {
+    "n": "FF returning-newtab: lock held through the reveal",
+    "p": true,
+    "d": ""
+  },
+  {
+    "n": "FF returning-newtab: unlocked only after interactive",
+    "p": true,
+    "d": ""
+  },
+  {
+    "n": "FF returning-newtab: forward cinematic after unlock",
+    "p": true,
+    "d": "p=1.0000"
+  },
+  {
+    "n": "FF returning-newtab: reverse cinematic restores hero",
+    "p": true,
+    "d": ""
+  },
+  {
+    "n": "FF returning-newtab: no page errors",
+    "p": true,
+    "d": ""
+  },
+  {
+    "n": "WK returning-newtab: gate present during prep",
+    "p": true,
+    "d": "{\"lock\":\"true\",\"gate\":\"preparing\",\"boot\":\"opening\",\"mode\":\"quiet\",\"y\":0,\"diveState\":null,\"diveProgress\":null,\"pinInstalled\":false}"
+  },
+  {
+    "n": "WK returning-newtab: wheel+keyboard held during prep",
+    "p": true,
+    "d": "y=0 p=null"
+  },
+  {
+    "n": "WK returning-newtab: lock held through the reveal",
+    "p": true,
+    "d": ""
+  },
+  {
+    "n": "WK returning-newtab: unlocked only after interactive",
+    "p": true,
+    "d": ""
+  },
+  {
+    "n": "WK returning-newtab: forward cinematic after unlock",
+    "p": true,
+    "d": "p=1.0000"
+  },
+  {
+    "n": "WK returning-newtab: reverse cinematic restores hero",
+    "p": true,
+    "d": ""
+  },
+  {
+    "n": "WK returning-newtab: no page errors",
+    "p": true,
+    "d": ""
+  }
+]
